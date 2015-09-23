@@ -14,25 +14,21 @@ public class BaseConverter {
         } else if (1 == Integer.parseInt(args[1])) {
             isValidArgs = false;
         } else if (args.length == 3) {
-            if(1 == Integer.parseInt(args[2])) {
+            if (1 == Integer.parseInt(args[2])) {
                 isValidArgs = false;
             }
         }
 
-        // base case for the first char of args[0]. Making sure it's an open bracket.
-        // if( c != '[') {
-        //     isValidArgs = false;
-        //     return isValidArgs;
-        // }
-        // toTest = toTest.substring(1);
-
         int stringLength = toTest.length();
-
 
         while(stringLength > 0) {
             c = toTest.charAt(0);
             
-            if(c == '[' && count == 0 && toTest.length() != 1) {
+            if (c == '[' && count == 0 && toTest.length() != 1) {
+                if (toTest.charAt(1) == '[') {
+                    isValidArgs = false;
+                    break;
+                }
                 toTest = toTest.substring(1);
             } else if (c == ']' && count == 0) {
                 isValidArgs = false;
@@ -58,7 +54,7 @@ public class BaseConverter {
 
         //Checking sure that each input is not larger than the base that is being converted
 
-        if(isValidArgs == true) {
+        if (isValidArgs == true) {
             String replaceBracketsWithSpaces = args[0].replaceAll("\\[", "").replaceAll("\\]"," ");;
             String[] stringArrayOfDigits= replaceBracketsWithSpaces.split(" ");
 
@@ -122,7 +118,7 @@ public class BaseConverter {
         int baseFrom = 0;
         int baseTo = 10;
         
-        if ( ! validArgs ( args ) ) {
+        if ( !validArgs(args) ) {
             throw new IllegalArgumentException();
         } else {
 
@@ -148,7 +144,7 @@ public class BaseConverter {
 
             int indexPosition = 0;
 
-            for(int i = stringArrayOfDigits.length - 1; i >= 0; i--) {
+            for (int i = stringArrayOfDigits.length - 1; i >= 0; i--) {
                 dataToConvert[indexPosition] = Integer.parseInt(stringArrayOfDigits[i]);
                 indexPosition++;
             }
