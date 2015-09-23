@@ -23,18 +23,20 @@ public class BaseConverter {
 
         while(stringLength > 0) {
             c = toTest.charAt(0);
+            boolean decimalChecker =(c == '0') || (c == '1') || (c == '2') || (c == '3') || (c == '4') 
+                || (c == '5') || (c == '6') || (c == '7') || (c == '8') || (c == '9');
             
             if (c == '[' && count == 0 && toTest.length() != 1) {
                 if (toTest.charAt(1) == '[') {
                     isValidArgs = false;
                     break;
+                } else {
+                    toTest = toTest.substring(1);
                 }
-                toTest = toTest.substring(1);
             } else if (c == ']' && count == 0) {
                 isValidArgs = false;
                 break;
-            } else if ((c == '0') || (c == '1') || (c == '2') || (c == '3') || (c == '4') 
-                || (c == '5') || (c == '6') || (c == '7') || (c == '8') || (c == '9')) {
+            } else if (decimalChecker) {
                     count++;
                     stringLength--;
                     toTest = toTest.substring(1);
@@ -51,9 +53,7 @@ public class BaseConverter {
             }
         }
 
-
-        //Checking sure that each input is not larger than the base that is being converted
-
+        //Making sure that each input is not larger than the base that is being converted
         if (isValidArgs == true) {
             String replaceBracketsWithSpaces = args[0].replaceAll("\\[", "").replaceAll("\\]"," ");;
             String[] stringArrayOfDigits= replaceBracketsWithSpaces.split(" ");
@@ -64,7 +64,6 @@ public class BaseConverter {
                 }
             }
         }
-
         return isValidArgs;
     }
     
@@ -75,7 +74,6 @@ public class BaseConverter {
         for (int i = 0; i < numberToConvert.length; i++) {
             decimalValueSoFar += numberToConvert[i] * Math.pow(base, i);
         }
-
         return decimalValueSoFar;
     }
 
@@ -88,7 +86,6 @@ public class BaseConverter {
         if (numberToConvert == 0) {
             return "[0]";
         } else {
-
             // this loop determines the length of array needed
             while (numCalc > 0) {
                 numCalc = (numCalc / base);
@@ -108,7 +105,6 @@ public class BaseConverter {
             for (int i = arrayOfValues.length -1; i >=0; i--) {
                 newValue += "[" + Long.toString(arrayOfValues[i]) + "]";
             }
-
             return newValue.trim();
         }
     }    
@@ -121,13 +117,11 @@ public class BaseConverter {
         if ( !validArgs(args) ) {
             throw new IllegalArgumentException();
         } else {
-
             if (args.length % 3 == 0) {
                 baseFrom = Integer.parseInt(args[args.length -2]);
                 baseTo = Integer.parseInt(args[args.length - 1]);
             } else {
                 baseFrom = Integer.parseInt(args[args.length - 1]);
-
             }
 
             int arrayLength = 0;
@@ -141,16 +135,13 @@ public class BaseConverter {
 
             String replaceBracketsWithSpaces = args[0].replaceAll("\\[", "").replaceAll("\\]"," ");;
             String[] stringArrayOfDigits= replaceBracketsWithSpaces.split(" ");
-
             int indexPosition = 0;
 
             for (int i = stringArrayOfDigits.length - 1; i >= 0; i--) {
                 dataToConvert[indexPosition] = Integer.parseInt(stringArrayOfDigits[i]);
                 indexPosition++;
             }
-
             System.out.println(conversionFromDecimal( conversionToDecimal(dataToConvert, baseFrom), baseTo));
         }
     }
-
 }
