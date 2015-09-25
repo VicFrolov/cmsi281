@@ -21,10 +21,10 @@ public class BaseConverter {
 
         int stringLength = toTest.length();
 
-        while(stringLength > 0) {
+        while (stringLength > 0) {
             c = toTest.charAt(0);
-            boolean decimalChecker =(c == '0') || (c == '1') || (c == '2') || (c == '3') || (c == '4') 
-                || (c == '5') || (c == '6') || (c == '7') || (c == '8') || (c == '9');
+            boolean decimalChecker = ((c == '0') || (c == '1') || (c == '2') || (c == '3') || (c == '4') 
+                || (c == '5') || (c == '6') || (c == '7') || (c == '8') || (c == '9'));
             
             if (c == '[' && count == 0 && toTest.length() != 1) {
                 if (toTest.charAt(1) == '[') {
@@ -68,7 +68,7 @@ public class BaseConverter {
     }
     
 
-    public static long conversionToDecimal(int[] numberToConvert, int base) {
+    public static long conversionToDecimal (int[] numberToConvert, int base) {
         long decimalValueSoFar = 0;
         
         for (int i = 0; i < numberToConvert.length; i++) {
@@ -77,7 +77,7 @@ public class BaseConverter {
         return decimalValueSoFar;
     }
 
-    public static String conversionFromDecimal(long numberToConvert, int base) {
+    public static String conversionFromDecimal (long numberToConvert, int base) {
         String newValue = "";
         long[] arrayOfValues;
         int arrayLength = 0;
