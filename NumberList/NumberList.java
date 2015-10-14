@@ -70,8 +70,18 @@ public class NumberList implements java.util.Collection {
 
     /** Returns true iff this number list contains at least one instance of the specified element. */
     public boolean contains ( Object obj ) {
-        /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
-        throw new UnsupportedOperationException();
+        if(obj == null) {
+            throw new NullPointerException();
+        } else if (!(obj instanceof Long)) {
+            throw new ClassCastException();
+        } else {
+            for (int i = 0; i < numberList.length; i++) {
+                if ( ((Long) obj).equals(numberList[i])) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
  
 
@@ -194,7 +204,7 @@ public class NumberList implements java.util.Collection {
 	public String toString () {
         String stringifiedArray = "[";
         for (int i = 0; i < this.count; i++) {
-        	if (i == this.count-1) {
+        	if (i == this.count - 1) {
         		stringifiedArray += (this.numberList[i].toString());
         	} else {
         		stringifiedArray += (this.numberList[i].toString()) + ", ";
