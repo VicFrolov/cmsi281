@@ -1,5 +1,5 @@
 public class NumberList implements java.util.Collection {
-	public Long[] numberList;
+	private Long[] numberList;
 	private int count;
 
 
@@ -54,9 +54,17 @@ public class NumberList implements java.util.Collection {
     
 
     /** Adds all of the elements of the given number list to this one. */
-    public boolean addAll ( java.util.Collection c  ) {
-        throw new UnsupportedOperationException();
+    public boolean addAll(java.util.Collection c) {
+        Long[] tempN = new Long[this.numberList.length + (c.size() * 2)];
+            int indexToAdd = count;
+            System.out.println(c.toString());
+            // for (int i = 0; i < c.size(); i++) {
+            //     tempN[indexToAdd] = (Long) c.get(i);
+            // }
 
+
+        count += c.size();
+        return true;
     }
  
 
@@ -199,8 +207,16 @@ public class NumberList implements java.util.Collection {
     
 
     /** Returns a Long[] containing all of the elements in this collection, not including duplicates. */
-    public Long[] toArray () {
-        throw new UnsupportedOperationException();
+    public Long[] toArray() {
+        Long[] tempN = new Long[]{};
+        NumberList tempNl = new NumberList(this.numberList);
+
+        if (this.count == 0) {
+            return tempN;
+        }
+
+                
+        return tempN;  
     }
 
 
@@ -242,10 +258,10 @@ public class NumberList implements java.util.Collection {
 
 
     /** Returns the number of instances of the given element in this number list. */
-    public int count( Object obj ) {
+    public int count(Object obj) {
     	int tally = 0;
     	for (int i = 0; i < this.count; i++) {
-    		if(this.numberList[i].equals((Long) obj)) {
+    		if (this.numberList[i].equals((Long) obj)) {
     			tally++;
     		}
     	}
@@ -272,17 +288,21 @@ public class NumberList implements java.util.Collection {
     /** This so-called "static factory" returns a new number list comprised of the numbers in the specified array.
         Note that the given array is long[], not Long[]. */
     public static NumberList fromArray ( long[] l ) {
-        /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
-        throw new UnsupportedOperationException();
+        NumberList tempNl = new NumberList();
+
+        for(int i = 0; i < l.length; i++) {
+            tempNl.add(new Long(l[i]));
+        }
+
+        return tempNl;
     }
 
     
     public static void main ( String[] args ) {
 
-    	// Please see this.numberListTestHarness.java for tests
+    	// Please see NumberListTestHarness.java for tests
 
-    	NumberListTestHarness.main(new String[]{"test"});
-
+    	NumberListTestHarness.main(new String[]{"test away!"});
 
 	
 	}
