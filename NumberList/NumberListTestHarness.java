@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class NumberListTestHarness {
 
     private static int attempts = 0;
@@ -15,6 +17,8 @@ public class NumberListTestHarness {
         contains_tester();
         remove_tester();
         size_tester();
+        toArray_tester();
+        fromArray_tester();
 
         System.out.println(successes + "/" + attempts + " tests passed.");
     }
@@ -406,5 +410,73 @@ public class NumberListTestHarness {
             displaySuccessIfTrue(true);
         }                        
     }                               
+    private static void toArray_tester() {
+        System.out.println("Testing toArray...");
+        NumberList nl = new NumberList();
+        NumberList nl2 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(3)});
+        NumberList nl3 = new NumberList(new Long[] {new Long(1)});
+        NumberList nl4 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(1),new Long(2), new Long(2), new Long(1)});
+        NumberList nl5 = new NumberList(new Long[] {new Long(1), new Long(1), new Long(1), new Long(1), new Long(1), new Long(1)});
+        NumberList nl6 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(3), new Long(4), new Long(1), new Long(2), new Long(3), new Long(4)});
 
+        Long[] nlTest = nl.toArray();
+        Long[] nl2Test = nl2.toArray();
+
+
+        try {
+            displaySuccessIfTrue(Arrays.deepEquals(nlTest, new Long[]{}));
+        } catch(Exception e) {
+            displaySuccessIfTrue(true);
+        }
+        try {
+            displaySuccessIfTrue(Arrays.deepEquals(nl2Test, (new Long[]{new Long(1), new Long(2), new Long(3)})));
+        } catch(Exception e) {
+            displaySuccessIfTrue(true);
+        }        
+                                
+    }       
+    private static void addAll_tester() {
+        System.out.println("Testing toArray...");
+        NumberList nl = new NumberList();
+        NumberList nl2 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(3)});
+        NumberList nl3 = new NumberList(new Long[] {new Long(1)});
+        NumberList nl4 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(1),new Long(2), new Long(2), new Long(1)});
+        NumberList nl5 = new NumberList(new Long[] {new Long(1), new Long(1), new Long(1), new Long(1), new Long(1), new Long(1)});
+        NumberList nl6 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(3), new Long(4), new Long(1), new Long(2), new Long(3), new Long(4)});
+
+
+        nl.addAll(nl2);
+        
+        try {
+            displaySuccessIfTrue(nl.equals(new Long[]{new Long(1), new Long(2), new Long(3)}));
+        } catch(Exception e) {
+            displaySuccessIfTrue(true);
+        }
+      
+                                
+    }
+    private static void fromArray_tester() {
+        System.out.println("Testing fromArray...");
+
+        NumberList nl = NumberList.fromArray(new long[]{1,2,3,4,5});
+        NumberList nl2 = NumberList.fromArray(new long[]{1});
+        NumberList nl3 = NumberList.fromArray(new long[]{});
+        NumberList nl4 = NumberList.fromArray(new long[]{});
+
+        try {
+            displaySuccessIfTrue(nl.toString().equals("[1, 2, 3, 4, 5]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(true);
+        }
+        try {
+            displaySuccessIfTrue(nl2.toString().equals("[1]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(true);
+        }
+        try {
+            displaySuccessIfTrue(nl3.toString().equals("[]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(true);
+        }                                          
+    }                  
 }
