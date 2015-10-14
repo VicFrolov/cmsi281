@@ -9,6 +9,7 @@ public class NumberListTestHarness {
 
         test_Me();
         adder();
+        count();
      
 
         System.out.println(successes + "/" + attempts + " tests passed.");
@@ -28,12 +29,12 @@ public class NumberListTestHarness {
         NumberList nl3 = new NumberList(new Long[] {new Long(1)});
 
         try {
-            displaySuccessIfTrue(nl.size() == 0);
+            displaySuccessIfTrue(nl.sizeIncludingDuplicates() == 0);
         } catch(Exception e) {
             displaySuccessIfTrue(false);
         }
         try {
-            displaySuccessIfTrue(nl2.size() == 3);
+            displaySuccessIfTrue(nl2.sizeIncludingDuplicates() == 3);
         } catch(Exception e) {
             displaySuccessIfTrue(false);
         }        
@@ -61,12 +62,12 @@ public class NumberListTestHarness {
         nl3.add(4);
 
         try {
-            displaySuccessIfTrue(nl.size() == 1);
+            displaySuccessIfTrue(nl.sizeIncludingDuplicates() == 1);
         } catch(Exception e) {
             displaySuccessIfTrue(false);
         }
         try {
-            displaySuccessIfTrue(nl3.size() == 3);
+            displaySuccessIfTrue(nl3.sizeIncludingDuplicates() == 3);
         } catch(Exception e) {
             displaySuccessIfTrue(false);
         }        
@@ -81,4 +82,50 @@ public class NumberListTestHarness {
             displaySuccessIfTrue(false);
         }
     }
+    private static void count() {
+        System.out.println("Testing count method...");
+        NumberList nl = new NumberList();
+        NumberList nl2 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(3)});
+        NumberList nl3 = new NumberList(new Long[] {new Long(1)});
+        nl.add(new Long(2));
+        nl3.add(new Long(1));
+        nl3.add(new Long(2));
+        nl3.add(new Long(3));
+
+        try {
+            displaySuccessIfTrue(nl.count(new Long(1)) == 0);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl2.count(new Long(4)) == 0);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }        
+        try {
+            displaySuccessIfTrue(nl2.count(new Long(1)) == 1);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl2.count(new Long(4)) == 0);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl3.count(new Long(1)) == 2);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }        
+        try {
+            displaySuccessIfTrue(nl3.count(new Long(1)) == 2);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl3.count(new Long(4)) == 0);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }  
+    }    
 }
