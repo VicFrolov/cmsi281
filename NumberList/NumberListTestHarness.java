@@ -19,6 +19,7 @@ public class NumberListTestHarness {
         size_tester();
         toArray_tester();
         fromArray_tester();
+        equals_tester();
 
         System.out.println(successes + "/" + attempts + " tests passed.");
     }
@@ -436,7 +437,7 @@ public class NumberListTestHarness {
                                 
     }       
     private static void addAll_tester() {
-        System.out.println("Testing toArray...");
+        System.out.println("Testing addAll...");
         NumberList nl = new NumberList();
         NumberList nl2 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(3)});
         NumberList nl3 = new NumberList(new Long[] {new Long(1)});
@@ -479,4 +480,58 @@ public class NumberListTestHarness {
             displaySuccessIfTrue(true);
         }                                          
     }                  
+    private static void equals_tester() {
+        System.out.println("Testing equals...");
+
+        NumberList nl = NumberList.fromArray(new long[]{1,2,3,4,5});
+        NumberList nl2 = NumberList.fromArray(new long[]{1,2,3,4,5});
+        NumberList nl3 = NumberList.fromArray(new long[]{});
+        NumberList nl4 = NumberList.fromArray(new long[]{});
+        NumberList nl5 = new NumberList();
+        nl5.add(new Long(1));
+        nl5.add(new Long(2));
+        nl5.add(new Long(3));
+        nl5.add(new Long(4));
+        nl5.remove(new Long(4));
+        NumberList nl6 = NumberList.fromArray(new long[]{1,2,3});
+        String s = "hi";
+
+        try {
+            displaySuccessIfTrue(nl.equals(nl2));
+        } catch(Exception e) {
+            displaySuccessIfTrue(true);
+        }
+        try {
+            displaySuccessIfTrue(nl3.equals(nl4));
+        } catch(Exception e) {
+            displaySuccessIfTrue(true);
+        }
+        try {
+            displaySuccessIfTrue(!(nl3.equals(s)));
+        } catch(Exception e) {
+            displaySuccessIfTrue(true);
+        }
+        try {
+            displaySuccessIfTrue(nl5.equals(nl6));
+        } catch(Exception e) {
+            displaySuccessIfTrue(true);
+        }
+        try {
+            displaySuccessIfTrue(!(nl.equals(nl6)));
+        } catch(Exception e) {
+            displaySuccessIfTrue(true);
+        }                                                                    
+    }  
+
+
+
+
+
+
+
+
+
+
+
+
 }
