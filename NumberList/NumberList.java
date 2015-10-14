@@ -155,7 +155,7 @@ public class NumberList implements java.util.Collection {
                     for (int j = 0; j < i; j++) {
                         tempNl[j] = this.numberList[j];
                     }
-                    
+
                     // copying over all values after the removed value
                     for(indexOfRemovedValue = indexOfRemovedValue; indexOfRemovedValue < count - 1; indexOfRemovedValue++) {
                         tempNl[indexOfRemovedValue] = this.numberList[indexOfRemovedValue + 1];
@@ -212,8 +212,30 @@ public class NumberList implements java.util.Collection {
 
 
     public int size () {
-    /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
-        throw new UnsupportedOperationException();
+        NumberList tempNl = new NumberList();
+
+        int sizeNoRepeating = 0;
+        for (int i = 0; i < count; i++) {
+            boolean uniqueElement = true;
+
+            for (int j = 0; j < count; j++) {
+
+                if(numberList[i].equals(numberList[j]) && i != j) {
+                    uniqueElement = false;                    
+                    //check to see if the temp NumberList contains this value as it is a duplicate
+                    if (!tempNl.contains(numberList[j])) {
+                        tempNl.add(numberList[j]);
+                    }
+                }
+            }
+            if (uniqueElement == true) {
+                sizeNoRepeating++;
+            }
+        }
+        // add all of the missing repeated values;
+        sizeNoRepeating += tempNl.sizeIncludingDuplicates();
+
+        return sizeNoRepeating;
     }
 
 
