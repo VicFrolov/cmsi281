@@ -1,9 +1,9 @@
 public class NumberList implements java.util.Collection {
-	private Long[] numberList;
+	public Long[] numberList;
 	private int count;
 
 
-    /** Constructs an empty number list. */
+    /** Constructs an empty number list. */ 
     public NumberList(){
     	numberList = new Long[1];
     	count = 0;
@@ -11,7 +11,7 @@ public class NumberList implements java.util.Collection {
 
 
     /** Constructs a number list from an array of Longs. */
-    public NumberList( Long[] l ){
+    public NumberList(Long[] l){
     	this.count = l.length;
     	this.numberList = new Long[l.length * 2];
 
@@ -55,15 +55,16 @@ public class NumberList implements java.util.Collection {
 
     /** Adds all of the elements of the given number list to this one. */
     public boolean addAll ( java.util.Collection c  ) {
-        /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
         throw new UnsupportedOperationException();
+
     }
  
 
     /** Removes all of the elements from this collection. */
     public void clear () {
-        /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
-        throw new UnsupportedOperationException();
+        Long[] tempNl = new Long[1];
+        count = 0;
+        numberList = tempNl;
     }
  
 
