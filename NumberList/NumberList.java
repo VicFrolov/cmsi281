@@ -106,9 +106,14 @@ public class NumberList implements java.util.Collection {
 
 
     /** Compares the specified object with this collection for equality. */
-    public boolean equals ( Object obj ) {
-        /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
-        throw new UnsupportedOperationException();
+    public boolean equals(Object obj) {
+        if (!(obj instanceof NumberList)) {
+            return false;    
+        } else if (this.toString().equals(obj.toString())) {
+            return true;
+        } else {
+            return false;
+        }
     }
  
 
@@ -200,7 +205,7 @@ public class NumberList implements java.util.Collection {
 
 
     /** Returns the number of elements in this number list, including duplicates. */
-    public int sizeIncludingDuplicates () {
+    public int sizeIncludingDuplicates() {
     	return this.count;
     }
     
@@ -214,9 +219,8 @@ public class NumberList implements java.util.Collection {
         if (this.count == 0) {
             return tempN;
         }
-
-                
         return tempN;  
+
     }
 
 
