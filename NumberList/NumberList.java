@@ -5,7 +5,7 @@ public class NumberList implements java.util.Collection {
 
     /** Constructs an empty number list. */ 
     public NumberList(){
-    	numberList = new Long[1];
+    	this.numberList = new Long[1];
     	count = 0;
 	}
 
@@ -64,7 +64,7 @@ public class NumberList implements java.util.Collection {
     public void clear () {
         Long[] tempNl = new Long[1];
         count = 0;
-        numberList = tempNl;
+        this.numberList = tempNl;
     }
  
 
@@ -75,8 +75,8 @@ public class NumberList implements java.util.Collection {
         } else if (!(obj instanceof Long)) {
             throw new ClassCastException();
         } else {
-            for (int i = 0; i < numberList.length; i++) {
-                if ( ((Long) obj).equals(numberList[i])) {
+            for (int i = 0; i < this.numberList.length; i++) {
+                if ( ((Long) obj).equals(this.numberList[i])) {
                     return true;
                 }
             }
@@ -137,8 +137,38 @@ public class NumberList implements java.util.Collection {
     /** Removes a single instance of the specified element from 
         this collection, if it is present. */
     public boolean remove ( Object obj ) {
-        /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
-        throw new UnsupportedOperationException();
+        Long[] tempNl = new Long[this.numberList.length];
+        int indexOfRemovedValue = 0;
+        if (!(obj instanceof Long)) {
+            throw new ClassCastException();
+        } else if (obj == null) {
+            throw new NullPointerException();
+        } else if (count == 0) {
+            return false;
+        } else {
+            for (int i = 0; i < this.numberList.length; i++) {
+
+                if (((Long) obj).equals(this.numberList[i])) {
+                    indexOfRemovedValue = i;
+
+                    //copying over all values before the removed value
+                    for (int j = 0; j < i; j++) {
+                        tempNl[j] = this.numberList[j];
+                    }
+                    
+                    // copying over all values after the removed value
+                    for(indexOfRemovedValue = indexOfRemovedValue; indexOfRemovedValue < count - 1; indexOfRemovedValue++) {
+                        tempNl[indexOfRemovedValue] = this.numberList[indexOfRemovedValue + 1];
+                    }
+
+                    count--;
+                    this.numberList = tempNl;
+                    
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 
@@ -227,7 +257,7 @@ public class NumberList implements java.util.Collection {
     
     public static void main ( String[] args ) {
 
-    	// Please see NumberListTestHarness.java for tests
+    	// Please see this.numberListTestHarness.java for tests
 
     	NumberListTestHarness.main(new String[]{"test"});
 
