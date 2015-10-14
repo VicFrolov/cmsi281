@@ -11,6 +11,7 @@ public class NumberListTestHarness {
         adder();
         count();
         toString_tester();
+        void_tester();
 
         System.out.println(successes + "/" + attempts + " tests passed.");
     }
@@ -158,5 +159,55 @@ public class NumberListTestHarness {
         } catch(Exception e) {
             displaySuccessIfTrue(false);
         }                               
-    }       
+    }
+
+
+    private static void void_tester() {
+        System.out.println("Testing void...");
+        NumberList nl = new NumberList();
+        NumberList nl2 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(3)});
+        NumberList nl3 = new NumberList(new Long[] {new Long(1)});
+        NumberList nl4 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(3),new Long(1), new Long(2), new Long(3)});
+
+        nl.clear();
+        nl2.clear();
+        nl3.clear();
+
+        nl3.add(new Long(5));
+        nl4.clear();
+        nl4.add(new Long(8));
+        nl4.add(new Long(10));
+
+
+        try {
+            displaySuccessIfTrue(nl.sizeIncludingDuplicates() == 0);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl2.sizeIncludingDuplicates() == 0);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }  
+        try {
+            displaySuccessIfTrue(nl3.sizeIncludingDuplicates() == 1);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl3.toString().equals("[5]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl4.sizeIncludingDuplicates() == 2);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl4.toString().equals("[8, 10]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }  
+    }            
 }
