@@ -1,5 +1,5 @@
 public class NumberList implements java.util.Collection {
-	public Long[] numberList;
+	private Long[] numberList;
 	private int count;
 
 
@@ -152,15 +152,13 @@ public class NumberList implements java.util.Collection {
 
     /** Returns the number of elements in this number list, including duplicates. */
     public int sizeIncludingDuplicates () {
-        /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
-        throw new UnsupportedOperationException();
+    	return this.count;
     }
     
     
 
     /** Returns a Long[] containing all of the elements in this collection, not including duplicates. */
     public Long[] toArray () {
-        /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
         throw new UnsupportedOperationException();
     }
 
@@ -173,16 +171,23 @@ public class NumberList implements java.util.Collection {
 
 
     public int size () {
-    	return this.count;
+    /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
+        throw new UnsupportedOperationException();
     }
 
 
 
 
     /** Returns the number of instances of the given element in this number list. */
-    public int count ( Object obj ) {
-        /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
-        throw new UnsupportedOperationException();
+    public int count( Object obj ) {
+    	int tally = 0;
+    	for (int i = 0; i < this.count; i++) {
+    		// System.out.println(this.numberList[i]+ " " + (Long) obj + (this.numberList[i] == ((Long) obj)) );
+    		if(this.numberList[i].equals((Long) obj)) {
+    			tally++;
+    		}
+    	}
+    	return tally;
     }
     
 
