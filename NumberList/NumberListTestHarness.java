@@ -12,6 +12,7 @@ public class NumberListTestHarness {
         count();
         toString_tester();
         void_tester();
+        contains_tester();
 
         System.out.println(successes + "/" + attempts + " tests passed.");
     }
@@ -209,5 +210,67 @@ public class NumberListTestHarness {
         } catch(Exception e) {
             displaySuccessIfTrue(false);
         }  
-    }            
+    }    
+
+    private static void contains_tester() {
+        System.out.println("Testing contain method...");
+        NumberList nl = new NumberList();
+        NumberList nl2 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(3)});
+        NumberList nl3 = new NumberList(new Long[] {new Long(1)});
+        NumberList nl4 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(3),new Long(1), new Long(2), new Long(3)});
+
+        try {
+            displaySuccessIfTrue(nl.contains(new Long(1)) == false);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl2.contains(new Long(10000)) == false);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl2.contains(new Long(3)) == true);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl2.contains(new Long(4)) == false);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            nl2.contains("hi");
+            displaySuccessIfTrue(false);
+        } catch(Exception e) {
+            displaySuccessIfTrue(true);
+        }        
+        try {
+            displaySuccessIfTrue(nl4.contains(1) == false);
+            displaySuccessIfTrue(false);
+        } catch(Exception e) {
+            displaySuccessIfTrue(true);
+        }
+        try {
+            displaySuccessIfTrue(nl4.contains(new Long(1)) == true);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl4.contains(new Long(2)) == true);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl4.contains(new Long(3)) == true);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl4.contains(new Long(4)) == false);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }                    
+    }                         
+
 }
