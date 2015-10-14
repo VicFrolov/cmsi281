@@ -182,7 +182,6 @@ public class NumberList implements java.util.Collection {
     public int count( Object obj ) {
     	int tally = 0;
     	for (int i = 0; i < this.count; i++) {
-    		// System.out.println(this.numberList[i]+ " " + (Long) obj + (this.numberList[i] == ((Long) obj)) );
     		if(this.numberList[i].equals((Long) obj)) {
     			tally++;
     		}
@@ -190,12 +189,19 @@ public class NumberList implements java.util.Collection {
     	return tally;
     }
     
+	@Override
+	public String toString () {
+        String stringifiedArray = "[";
+        for (int i = 0; i < this.count; i++) {
+        	if (i == this.count-1) {
+        		stringifiedArray += (this.numberList[i].toString());
+        	} else {
+        		stringifiedArray += (this.numberList[i].toString()) + ", ";
+        	}
+        }
+        stringifiedArray += "]";
 
-    
-    /** This returns a stringy version of this number list. */
-    public String toString () { // overrides Object.toString()
-        /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
-        throw new UnsupportedOperationException();
+        return stringifiedArray;
     }
 
 
