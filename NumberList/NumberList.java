@@ -1,22 +1,53 @@
 public class NumberList implements java.util.Collection {
+	public Long[] numberList;
+	private int count;
+
 
     /** Constructs an empty number list. */
     public NumberList(){
-        /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
-        throw new UnsupportedOperationException();
-    }
+    	numberList = new Long[0];
+    	count = 0;
+	}
 
 
     /** Constructs a number list from an array of Longs. */
     public NumberList( Long[] l ){
-        /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
-        throw new UnsupportedOperationException();
+    	this.count = l.length;
+    	this.numberList = new Long[l.length * 2];
+
+    	for (int i = 0; i < l.length; i++) {
+    		this.numberList[i] = l[i];
+    	}
     }
     
     /** Increases by one the number of instances of the given element in this collection. */
     public boolean add ( Object obj ) {
-        /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
-        throw new UnsupportedOperationException();
+    	int nlLength = this.numberList.length;
+    	if (!(obj instanceof Long)) {
+    			    System.out.println("true");
+
+    		return false;
+    	} else {
+	    	this.count++;
+
+	    	for (int i = 0; i < nlLength; i++) {
+	    		if (this.numberList[i] == null) {
+	    			this.numberList[i] = (Long) obj;
+	    			break;
+	    		} else {
+	    			Long[] tempNl = new Long[nlLength * 2];
+
+	    			for (int j = 0; j < nlLength; j++) {
+	    				tempNl[j] = this.numberList[j];
+	    			}
+	    			tempNl[nlLength] = (Long) obj;
+	    			this.numberList = tempNl;
+	    			break;
+	    		}
+	    	}
+	    }
+
+	    return true;
     }
     
 
@@ -72,8 +103,11 @@ public class NumberList implements java.util.Collection {
 
     /** Returns true if this collection contains no elements. */
     public boolean isEmpty () {
-        /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
-        throw new UnsupportedOperationException();
+    	if (count == 0) {
+    		return true;
+    	} else {
+    		return false;
+    	}
     }
 
 
@@ -136,12 +170,8 @@ public class NumberList implements java.util.Collection {
     }
 
 
-
-
-    /** Returns the number of elements in this number list, not including duplicates. */
     public int size () {
-        /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
-        throw new UnsupportedOperationException();
+    	return this.count;
     }
 
 
@@ -171,10 +201,13 @@ public class NumberList implements java.util.Collection {
     }
 
     
-    /** This main method is just a comprehensive test program for the class. */
     public static void main ( String[] args ) {
-        /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
-        throw new UnsupportedOperationException();
-    }
+
+    	// Please see NumberListTestHarness.java for tests
+
+    	NumberListTestHarness.main(new String[]{"test"});
+
+	
+	}
     
 }
