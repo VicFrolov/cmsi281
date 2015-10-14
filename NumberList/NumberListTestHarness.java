@@ -13,6 +13,7 @@ public class NumberListTestHarness {
         toString_tester();
         clear_tester();
         contains_tester();
+        remove_tester();
 
         System.out.println(successes + "/" + attempts + " tests passed.");
     }
@@ -28,8 +29,8 @@ public class NumberListTestHarness {
         System.out.println("Testing constructors...");
         NumberList nl = new NumberList();
         NumberList nl2 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(3)});
-        NumberList nl3 = new NumberList(new Long[] {new Long(1)});
-
+        NumberList nl3 = new NumberList(new Long[] {new Long(100000)});
+        NumberList nl4 = new NumberList(new Long[] {new Long(0)});
         try {
             displaySuccessIfTrue(nl.sizeIncludingDuplicates() == 0);
         } catch(Exception e) {
@@ -49,8 +50,27 @@ public class NumberListTestHarness {
             displaySuccessIfTrue(nl2.isEmpty() == false);
         } catch(Exception e) {
             displaySuccessIfTrue(false);
-        }        
-        
+        }
+        try {
+            displaySuccessIfTrue(nl.toString().equals("[]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl2.toString().equals("[1, 2, 3]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }                          
+        try {
+            displaySuccessIfTrue(nl3.toString().equals("[100000]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl4.toString().equals("[0]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }                
     }
 
     private static void adder() {
@@ -164,7 +184,7 @@ public class NumberListTestHarness {
 
 
     private static void clear_tester() {
-        System.out.println("Testing void...");
+        System.out.println("Testing clear...");
         NumberList nl = new NumberList();
         NumberList nl2 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(3)});
         NumberList nl3 = new NumberList(new Long[] {new Long(1)});
@@ -271,6 +291,56 @@ public class NumberListTestHarness {
         } catch(Exception e) {
             displaySuccessIfTrue(false);
         }                    
-    }                         
+    }
+
+    private static void remove_tester() {
+        System.out.println("Testing remove...");
+        NumberList nl = new NumberList();
+        NumberList nl2 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(3)});
+        NumberList nl3 = new NumberList(new Long[] {new Long(1)});
+        NumberList nl4 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(3),new Long(4), new Long(5), new Long(6)});
+        NumberList nl5 = new NumberList(new Long[] {new Long(1)});
+        NumberList nl6 = new NumberList(new Long[] {new Long(1)});
+
+        nl.remove(new Long(1));
+        nl2.remove(new Long(1));
+        nl3.remove(new Long(1)); 
+        nl4.remove(new Long(6));
+        
+        try {
+            displaySuccessIfTrue(nl.toString().equals("[]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(true);
+        }
+        try {
+            displaySuccessIfTrue(nl2.toString().equals("[2, 3]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl3.equals("[]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }  
+        try {
+            displaySuccessIfTrue(nl4.equals("[1, 2, 3, 4, 5]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl5.remove(null));
+            displaySuccessIfTrue(false);
+
+        } catch(Exception e) {
+            displaySuccessIfTrue(true);
+        }  
+        try {
+            displaySuccessIfTrue(nl6.remove(5));
+            displaySuccessIfTrue(false);
+
+        } catch(Exception e) {
+            displaySuccessIfTrue(true);
+        }                                       
+    }                             
 
 }
