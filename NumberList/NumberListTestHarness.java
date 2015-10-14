@@ -14,8 +14,8 @@ public class NumberListTestHarness {
         clear_tester();
         contains_tester();
         remove_tester();
-        remove_tester();
-        
+        size_tester();
+
         System.out.println(successes + "/" + attempts + " tests passed.");
     }
 
@@ -366,42 +366,42 @@ public class NumberListTestHarness {
         }                                                        
     }  
 
-    private static void remove_tester() {
+    private static void size_tester() {
         System.out.println("Testing size (unique)...");
         NumberList nl = new NumberList();
         NumberList nl2 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(3)});
         NumberList nl3 = new NumberList(new Long[] {new Long(1)});
         NumberList nl4 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(1),new Long(2), new Long(2), new Long(1)});
         NumberList nl5 = new NumberList(new Long[] {new Long(1), new Long(1), new Long(1), new Long(1), new Long(1), new Long(1)});
-        NumberList nl6 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(3), new Long(4), new Long(1)});
+        NumberList nl6 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(3), new Long(4), new Long(1), new Long(2), new Long(3), new Long(4)});
 
         try {
-            displaySuccessIfTrue(nl.size().equals(0));
+            displaySuccessIfTrue(nl.size() == 0);
         } catch(Exception e) {
             displaySuccessIfTrue(true);
         }
         try {
-            displaySuccessIfTrue(nl2.size().equals(3));
+            displaySuccessIfTrue(nl2.size() == 3);
         } catch(Exception e) {
             displaySuccessIfTrue(true);
         }
         try {
-            displaySuccessIfTrue(nl3.size().equals(1));
+            displaySuccessIfTrue(nl3.size() == 1);
         } catch(Exception e) {
             displaySuccessIfTrue(true);
         }
         try {
-            displaySuccessIfTrue(nl4.size().equals(2));
+            displaySuccessIfTrue(nl4.size() == 2);
         } catch(Exception e) {
             displaySuccessIfTrue(true);
         }
         try {
-            displaySuccessIfTrue(nl5.size().equals(1));
+            displaySuccessIfTrue(nl5.size() == 1);
         } catch(Exception e) {
             displaySuccessIfTrue(true);
         }
         try {
-            displaySuccessIfTrue(nl6.size().equals(4));
+            displaySuccessIfTrue(nl6.size() == 4);
         } catch(Exception e) {
             displaySuccessIfTrue(true);
         }                        
