@@ -11,7 +11,7 @@ public class NumberListTestHarness {
         adder();
         count();
         toString_tester();
-        void_tester();
+        clear_tester();
         contains_tester();
 
         System.out.println(successes + "/" + attempts + " tests passed.");
@@ -163,7 +163,7 @@ public class NumberListTestHarness {
     }
 
 
-    private static void void_tester() {
+    private static void clear_tester() {
         System.out.println("Testing void...");
         NumberList nl = new NumberList();
         NumberList nl2 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(3)});
