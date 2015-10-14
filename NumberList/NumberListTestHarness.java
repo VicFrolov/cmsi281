@@ -159,6 +159,8 @@ public class NumberListTestHarness {
         NumberList nl2 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(3)});
         NumberList nl3 = new NumberList(new Long[] {new Long(1)});
         NumberList nl4 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(3),new Long(1), new Long(2), new Long(3)});
+        NumberList nl5 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(3),new Long(1), new Long(2), new Long(3), 
+                            new Long(1), new Long(2), new Long(3),new Long(1), new Long(2), new Long(3)});
 
         try {
             displaySuccessIfTrue(nl.toString().equals("[]"));
@@ -179,7 +181,12 @@ public class NumberListTestHarness {
             displaySuccessIfTrue(nl4.toString().equals("[1, 2, 3, 1, 2, 3]"));
         } catch(Exception e) {
             displaySuccessIfTrue(false);
-        }                               
+        }
+        try {
+            displaySuccessIfTrue(nl5.toString().equals("[1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }                                        
     }
 
 
@@ -301,14 +308,19 @@ public class NumberListTestHarness {
         NumberList nl4 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(3),new Long(4), new Long(5), new Long(6)});
         NumberList nl5 = new NumberList(new Long[] {new Long(1)});
         NumberList nl6 = new NumberList(new Long[] {new Long(1)});
+        NumberList nl7 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(3),new Long(4), new Long(5), new Long(6)});
+        NumberList nl8 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(3),new Long(4), new Long(5), new Long(6)});
+
 
         nl.remove(new Long(1));
         nl2.remove(new Long(1));
         nl3.remove(new Long(1)); 
         nl4.remove(new Long(6));
-        
+        nl7.remove(new Long(4));
+        nl8.remove(new Long(1));
+
         try {
-            displaySuccessIfTrue(nl.toString().equals("[]"));
+            displaySuccessIfTrue((nl.toString()).equals("[]"));
         } catch(Exception e) {
             displaySuccessIfTrue(true);
         }
@@ -318,12 +330,12 @@ public class NumberListTestHarness {
             displaySuccessIfTrue(false);
         }
         try {
-            displaySuccessIfTrue(nl3.equals("[]"));
+            displaySuccessIfTrue(nl3.toString().equals("[]"));
         } catch(Exception e) {
             displaySuccessIfTrue(false);
         }  
         try {
-            displaySuccessIfTrue(nl4.equals("[1, 2, 3, 4, 5]"));
+            displaySuccessIfTrue(nl4.toString().equals("[1, 2, 3, 4, 5]"));
         } catch(Exception e) {
             displaySuccessIfTrue(false);
         }
@@ -340,7 +352,12 @@ public class NumberListTestHarness {
 
         } catch(Exception e) {
             displaySuccessIfTrue(true);
-        }                                       
+        }
+        try {
+            displaySuccessIfTrue(nl8.toString().equals("[2, 3, 4, 5, 6]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }                                               
     }                             
 
 }
