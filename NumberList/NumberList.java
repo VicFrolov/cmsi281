@@ -5,7 +5,7 @@ public class NumberList implements java.util.Collection {
 
     /** Constructs an empty number list. */
     public NumberList(){
-    	numberList = new Long[0];
+    	numberList = new Long[1];
     	count = 0;
 	}
 
@@ -23,18 +23,17 @@ public class NumberList implements java.util.Collection {
     /** Increases by one the number of instances of the given element in this collection. */
     public boolean add ( Object obj ) {
     	int nlLength = this.numberList.length;
+    	int countArray = 0;
     	if (!(obj instanceof Long)) {
-    			    System.out.println("true");
-
     		return false;
     	} else {
-	    	this.count++;
 
 	    	for (int i = 0; i < nlLength; i++) {
 	    		if (this.numberList[i] == null) {
 	    			this.numberList[i] = (Long) obj;
+	    			count++;
 	    			break;
-	    		} else {
+	    		} else if (countArray == this.count || this.count == nlLength) {
 	    			Long[] tempNl = new Long[nlLength * 2];
 
 	    			for (int j = 0; j < nlLength; j++) {
@@ -42,8 +41,11 @@ public class NumberList implements java.util.Collection {
 	    			}
 	    			tempNl[nlLength] = (Long) obj;
 	    			this.numberList = tempNl;
+	    			count++;
 	    			break;
+
 	    		}
+	    		countArray++;
 	    	}
 	    }
 
@@ -206,6 +208,7 @@ public class NumberList implements java.util.Collection {
     	// Please see NumberListTestHarness.java for tests
 
     	NumberListTestHarness.main(new String[]{"test"});
+
 
 	
 	}

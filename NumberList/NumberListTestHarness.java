@@ -46,12 +46,7 @@ public class NumberListTestHarness {
             displaySuccessIfTrue(nl2.isEmpty() == false);
         } catch(Exception e) {
             displaySuccessIfTrue(false);
-        }
-        // try {
-        //     displaySuccessIfTrue(NumberList nl4 = new NumberList(5) == false);
-        // } catch(Exception e) {
-        //     displaySuccessIfTrue(false);
-        // }         
+        }        
         
     }
 
@@ -63,6 +58,7 @@ public class NumberListTestHarness {
         nl.add(new Long(2));
         nl3.add(new Long(2));
         nl3.add(new Long(3));
+        nl3.add(4);
 
         try {
             displaySuccessIfTrue(nl.size() == 1);
