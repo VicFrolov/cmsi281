@@ -17,13 +17,14 @@ public class NumberListTestHarness {
         contains_tester();
         remove_tester();
         size_tester();
-        toArray_tester();
         fromArray_tester();
         equals_tester();
         addAll_tester();
         containsAll_tester();
         removeAll_tester();  
-        retainAll_tester();      
+        retainAll_tester();    
+        toArray_tester();
+
 
         System.out.println(successes + "/" + attempts + " tests passed.");
     }
@@ -458,6 +459,9 @@ public class NumberListTestHarness {
 
         Long[] nlTest = nl.toArray();
         Long[] nl2Test = nl2.toArray();
+        Long[] nl3Test = nl3.toArray();
+        Long[] nl4Test = nl4.toArray();
+        Long[] nl6Test = nl6.toArray();
 
 
         try {
@@ -469,8 +473,22 @@ public class NumberListTestHarness {
             displaySuccessIfTrue(Arrays.deepEquals(nl2Test, (new Long[]{new Long(1), new Long(2), new Long(3)})));
         } catch(Exception e) {
             displaySuccessIfTrue(false);
-        }        
-                                
+        }
+        try {
+            displaySuccessIfTrue(Arrays.deepEquals(nl4Test, (new Long[]{new Long(1), new Long(2)})));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(Arrays.deepEquals(nl3Test, (new Long[]{new Long(1)})));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }                           
+        try {
+            displaySuccessIfTrue(Arrays.deepEquals(nl6Test, (new Long[]{new Long(1), new Long(2), new Long(3), new Long(4)})));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }                      
     }       
     private static void addAll_tester() {
         System.out.println("Testing addAll...");
@@ -736,6 +754,7 @@ public class NumberListTestHarness {
         nll2.retainAll(nl6);
         nla.retainAll(nl33);
         nll.retainAll(nlld);
+        nl6.retainAll(nl5);
 
         try {
             displaySuccessIfTrue(nl.toString().equals("[1, 1, 2, 2, 3, 3]"));
@@ -777,7 +796,26 @@ public class NumberListTestHarness {
         } catch(Exception e) {
             displaySuccessIfTrue(false);
         }          
-                                                                                          
-    }               
+        try {
+            displaySuccessIfTrue(nl6.toString().equals("[]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }                                                                                          
+    } 
 
+    // private static void convertNl_tester() {
+    //     System.out.println("Testing convertNl...");
+
+    //     NumberList nl = NumberList.fromArray(new long[]{1, 1, 2, 2, 3, 3});
+    //     NumberList tempNl = new NumberList();
+
+    //     long[] nl2 = nl.convertNl(nl);
+    //     long[] tempnlT = tempNl.convertNl(tempNl);
+
+    //     try {
+    //         displaySuccessIfTrue(nl.toString().equals("[1, 1, 2, 2, 3, 3]"));
+    //     } catch(Exception e) {
+    //         displaySuccessIfTrue(false);
+    //     }
+    // }
 }

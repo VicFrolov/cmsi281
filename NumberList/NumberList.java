@@ -95,13 +95,17 @@ public class NumberList implements java.util.Collection {
     }
 
     //helper method that converts a numberList into a long[]
-    public long[] convertNl( java.util.Collection c) {
+    public long[] convertNl(java.util.Collection c) {
+        //quick base case check
+        if (c.isEmpty()) {
+            return new long[0];
+        }
 
         String stringifiedC = ((NumberList) c).toString();
         String[] elementsOfC = (stringifiedC.substring(1, stringifiedC.length() -1)).split(", ");
         long[] longsOfC = new long[((NumberList) c).sizeIncludingDuplicates()];
 
-        for(int i = 0; i < elementsOfC.length; i++) {
+        for (int i = 0; i < elementsOfC.length; i++) {
             longsOfC[i] = Long.parseLong(elementsOfC[i]);
         }
 
@@ -177,7 +181,7 @@ public class NumberList implements java.util.Collection {
 
 
 
-    public boolean remove ( Object obj ) {
+    public boolean remove(Object obj) {
         Long[] tempNl = new Long[this.numberList.length];
         int indexOfRemovedValue = 0;
         if (!(obj instanceof Long)) {
@@ -198,7 +202,7 @@ public class NumberList implements java.util.Collection {
                     }
 
                     // copying over all values after the removed value
-                    for(indexOfRemovedValue = indexOfRemovedValue; indexOfRemovedValue < count - 1; indexOfRemovedValue++) {
+                    for (indexOfRemovedValue = indexOfRemovedValue; indexOfRemovedValue < count - 1; indexOfRemovedValue++) {
                         tempNl[indexOfRemovedValue] = this.numberList[indexOfRemovedValue + 1];
                     }
 
@@ -213,7 +217,7 @@ public class NumberList implements java.util.Collection {
     }
 
 
-    public boolean removeAll ( java.util.Collection c ) {
+    public boolean removeAll(java.util.Collection c) {
         long[] elementsOfC;
 
         if ((NumberList) c == null) {
@@ -238,11 +242,7 @@ public class NumberList implements java.util.Collection {
     }
 
 
-
-	/** Retains only the elements in this collection that are contained in the specified collection. 
-		 In other words, removes from this collection all of its elements that are not contained in the 
-		 specified collection. */
-	public boolean retainAll ( java.util.Collection c ) {
+	public boolean retainAll(java.util.Collection c ){
         long[] elementsOfC;
         Long[] tempNl = new Long[this.count];
         int elementIndex = 0;
@@ -283,13 +283,28 @@ public class NumberList implements java.util.Collection {
 
     /** Returns a Long[] containing all of the elements in this collection, not including duplicates. */
     public Long[] toArray() {
-        Long[] tempN = new Long[]{};
-        NumberList tempNl = new NumberList(this.numberList);
+        long[] valuesOfCopy = this.convertNl(this);
+        NumberList tempStorage = new NumberList();
+        Long[] elementsWithNoRep;
 
-        if (this.count == 0) {
-            return tempN;
+        if (this.size() == 0) {
+            return new Long[]{};
+        } else {
+            for (int i = 0; i < this.sizeIncludingDuplicates(); i++) {
+                if (!tempStorage.contains(new Long(valuesOfCopy[i]))) {
+                    tempStorage.add(new Long(valuesOfCopy[i]));
+                }
+            }
         }
-        return tempN;  
+
+        elementsWithNoRep = new Long[tempStorage.size()];
+        long[] tempStorageElements = convertNl(tempStorage);
+
+        for(int i = 0; i < elementsWithNoRep.length; i++) {
+            elementsWithNoRep[i] = new Long(tempStorageElements[i]);
+        }
+
+        return elementsWithNoRep;
     }
 
 
