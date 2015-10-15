@@ -22,7 +22,8 @@ public class NumberListTestHarness {
         equals_tester();
         addAll_tester();
         containsAll_tester();
-        removeAll_tester();        
+        removeAll_tester();  
+        retainAll_tester();      
 
         System.out.println(successes + "/" + attempts + " tests passed.");
     }
@@ -708,6 +709,75 @@ public class NumberListTestHarness {
             displaySuccessIfTrue(false);
         }                          
                                                                                           
-    }        
+    }
+    private static void retainAll_tester() {
+        System.out.println("Testing retainAll...");
+
+        NumberList nl = NumberList.fromArray(new long[]{1, 1, 2, 2, 3, 3});
+        NumberList nl2 = NumberList.fromArray(new long[]{1,2,3});
+        NumberList nl3 = NumberList.fromArray(new long[]{1,1,1,1,9,8,7,6,5,4,3,10});
+        NumberList nl4 = NumberList.fromArray(new long[]{5});
+        NumberList nl5 = NumberList.fromArray(new long[]{1});
+        NumberList nl6 = NumberList.fromArray(new long[]{9});
+        NumberList nll = NumberList.fromArray(new long[]{1,2,3,1, 2, 1, 1, 1, 1, 1, 1, 1, 9});
+        NumberList nll2 = NumberList.fromArray(new long[]{1,2,3,4,5,6,7,8,10,11,12,13,14,15,16,17});
+        NumberList nl33 = NumberList.fromArray(new long[]{1, 1, 1,2, 2, 2, 3, 3, 3});
+        NumberList nla = NumberList.fromArray(new long[]{});
+        NumberList nlld = NumberList.fromArray(new long[]{1,9});
+
+
+        nl.retainAll(nl2);
+
+        nl33.retainAll(nl2);
+        nl2.retainAll(nl3);
+
+
+        nl3.retainAll(nl4);
+        nll2.retainAll(nl6);
+        nla.retainAll(nl33);
+        nll.retainAll(nlld);
+
+        try {
+            displaySuccessIfTrue(nl.toString().equals("[1, 1, 2, 2, 3, 3]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl2.toString().equals("[1, 3]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl33.toString().equals("[1, 1, 1, 2, 2, 2, 3, 3, 3]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nll2.toString().equals("[]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nla.toString().equals("[]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nla.sizeIncludingDuplicates() == 0);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }                                
+        try {
+            displaySuccessIfTrue(nl33.sizeIncludingDuplicates() == 9);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nll.toString().equals("[1, 1, 1, 1, 1, 1, 1, 1, 1, 9]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }          
+                                                                                          
+    }               
 
 }
