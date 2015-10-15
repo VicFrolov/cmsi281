@@ -3,12 +3,16 @@ public class NumberList implements java.util.Collection {
 	private int count;
 
 
+    /** Constructs an empty number list. */
+    // Complexity -> O(1)
     public NumberList() {
     	this.numberList = new Long[1];
     	count = 0;
 	}
 
 
+    /** Constructs a number list from an array of Longs. */
+    //  Complexity -> O(n)
     public NumberList(Long[] l) {
     	this.count = l.length;
     	this.numberList = new Long[l.length * 2];
@@ -19,6 +23,8 @@ public class NumberList implements java.util.Collection {
     }
     
 
+    /** Increases by one the number of instances of the given element in this collection. */
+    // Complexity -> O(n)
     public boolean add (Object obj) {
     	int nlLength = this.numberList.length;
     	int countArray = 0;
@@ -51,6 +57,8 @@ public class NumberList implements java.util.Collection {
     }
     
 
+    /** Adds all of the elements of the given number list to this one. */
+    // Complexity -> O(n)
     public boolean addAll(java.util.Collection c) {
 
         if ((NumberList) c == null) {
@@ -71,7 +79,9 @@ public class NumberList implements java.util.Collection {
         return true;
     }
 
- 
+
+    /** Removes all of the elements from this collection. */
+    // Complexity -> O(1)
     public void clear() {
         Long[] tempNl = new Long[1];
         this.count = 0;
@@ -79,6 +89,8 @@ public class NumberList implements java.util.Collection {
     }
 
 
+    /** Returns true iff this number list contains at least one instance of the specified element. */
+    //  Complexity ->  O(n)
     public boolean contains(Object obj) {
         if (obj == null) {
             throw new NullPointerException();
@@ -94,7 +106,9 @@ public class NumberList implements java.util.Collection {
         return false;
     }
 
+
     //helper method that converts a numberList into a long[]
+    //  Complexity -> O(n)
     public long[] convertNl(java.util.Collection c) {
         //quick base case check
         if (c.isEmpty()) {
@@ -113,6 +127,10 @@ public class NumberList implements java.util.Collection {
     }
  
 
+    /** Returns true iff this number list contains at least one instance of each element 
+        in the specified list. Multiple copies of some element in the argument do not
+        require multiple copies in this number list. */
+    // Complexity -> O(n^2)
     public boolean containsAll ( java.util.Collection c ) {
         long[] elementsOfC;
         boolean containsAllVals = false;
@@ -147,7 +165,8 @@ public class NumberList implements java.util.Collection {
     }
  
  
-
+    /** Compares the specified object with this collection for equality. */
+    // Complexity -> O(n)
     public boolean equals(Object obj) {
         if (!(obj instanceof NumberList)) {
             return false;    
@@ -157,7 +176,6 @@ public class NumberList implements java.util.Collection {
     }
 
 
-
     /** Returns the hashcode value for this collection. */
     public int hashCode () {
         /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
@@ -165,22 +183,23 @@ public class NumberList implements java.util.Collection {
     }
 
 
-
+    /** Returns true if this collection contains no elements. */
+    // Complexity -> O(1)
     public boolean isEmpty () {
     	return (count == 0) ? true : false;
     }
 
 
-
     /** Returns an iterator over the elements in this collection. Replicated elements should
         be "iterated over" just once. */
     public java.util.Iterator iterator () {
-        /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
         throw new UnsupportedOperationException();
     }
 
 
-
+    /** Removes a single instance of the specified element from 
+        this collection, if it is present. */
+    // Complexity -> O(n^2)
     public boolean remove(Object obj) {
         Long[] tempNl = new Long[this.numberList.length];
         int indexOfRemovedValue = 0;
@@ -217,6 +236,9 @@ public class NumberList implements java.util.Collection {
     }
 
 
+    /** Removes all of this collection's elements that are also contained 
+        in the specified collection. */
+    // Complexity -> O(n^2)
     public boolean removeAll(java.util.Collection c) {
         long[] elementsOfC;
 
@@ -242,6 +264,10 @@ public class NumberList implements java.util.Collection {
     }
 
 
+    /** Retains only the elements in this collection that are contained in the specified collection. 
+         In other words, removes from this collection all of its elements that are not contained in the 
+         specified collection. */
+    //  Complexity -> O (n)
 	public boolean retainAll(java.util.Collection c ){
         long[] elementsOfC;
         Long[] tempNl = new Long[this.count];
@@ -266,22 +292,19 @@ public class NumberList implements java.util.Collection {
             this.numberList = tempNl;
             this.count = elementIndex;
             return true;
-
-
         }
-
-
-        // ((NumberList) c).sizeIncludingDuplicates() == 0 || 
     }
 
 
+    /** Returns the number of elements in this number list, including duplicates. */
+    // Complexity -> O (1)
     public int sizeIncludingDuplicates() {
     	return this.count;
     }
     
     
-
     /** Returns a Long[] containing all of the elements in this collection, not including duplicates. */
+    // Complexity -> 0(n^2)
     public Long[] toArray() {
         long[] valuesOfCopy = this.convertNl(this);
         NumberList tempStorage = new NumberList();
@@ -308,13 +331,14 @@ public class NumberList implements java.util.Collection {
     }
 
 
-
     /** Not supported for this class. */
     public Object[] toArray ( Object[] obj ) {
         throw new UnsupportedOperationException();
     }
 
 
+    /** Returns the number of elements in this number list, not including duplicates. */
+    // Complexity -> O(n^2)
     public int size () {
         NumberList tempNl = new NumberList();
 
@@ -343,6 +367,8 @@ public class NumberList implements java.util.Collection {
     }
 
 
+    /** Returns the number of instances of the given element in this number list. */
+    // Complexity -> O (n)
     public int count(Object obj) {
     	int tally = 0;
     	for (int i = 0; i < this.count; i++) {
@@ -354,6 +380,8 @@ public class NumberList implements java.util.Collection {
     }
     
 
+    /** This returns a stringy version of this number list. */
+    //  Complexity -> O (n)
 	@Override
 	public String toString () {
         String stringifiedArray = "[";
@@ -371,6 +399,9 @@ public class NumberList implements java.util.Collection {
     }
 
 
+    /** This so-called "static factory" returns a new number list comprised of the numbers in the specified array.
+        Note that the given array is long[], not Long[]. */
+    // Complexity -> O (n)
     public static NumberList fromArray ( long[] l ) {
         NumberList tempNl = new NumberList();
 
