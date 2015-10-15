@@ -72,7 +72,7 @@ public class NumberList implements java.util.Collection {
     }
 
  
-    public void clear () {
+    public void clear() {
         Long[] tempNl = new Long[1];
         this.count = 0;
         this.numberList = tempNl;
@@ -215,7 +215,6 @@ public class NumberList implements java.util.Collection {
 
     public boolean removeAll ( java.util.Collection c ) {
         long[] elementsOfC;
-        boolean containsAllVals = false;
 
         if ((NumberList) c == null) {
             throw new NullPointerException();
@@ -244,8 +243,36 @@ public class NumberList implements java.util.Collection {
 		 In other words, removes from this collection all of its elements that are not contained in the 
 		 specified collection. */
 	public boolean retainAll ( java.util.Collection c ) {
-		throw new UnsupportedOperationException();
-	}
+        long[] elementsOfC;
+        Long[] tempNl = new Long[this.count];
+        int elementIndex = 0;
+
+        if ((NumberList) c == null) {
+            throw new NullPointerException();
+        } else if (!(c instanceof NumberList)) {
+            return false;
+        } else if ( (this.count == 0)) {
+            return true;
+        } else {
+            elementsOfC = convertNl(c);
+
+            for (int i = 0; i < this.count; i++) {
+                if (c.contains(new Long(this.numberList[i]))) {
+                    tempNl[elementIndex] = this.numberList[i];
+                    elementIndex++;
+                }
+            }
+
+            this.numberList = tempNl;
+            this.count = elementIndex;
+            return true;
+
+
+        }
+
+
+        // ((NumberList) c).sizeIncludingDuplicates() == 0 || 
+    }
 
 
     public int sizeIncludingDuplicates() {
