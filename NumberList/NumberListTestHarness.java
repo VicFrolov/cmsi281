@@ -20,6 +20,7 @@ public class NumberListTestHarness {
         toArray_tester();
         fromArray_tester();
         equals_tester();
+        addAll_tester();
 
         System.out.println(successes + "/" + attempts + " tests passed.");
     }
@@ -444,15 +445,37 @@ public class NumberListTestHarness {
         NumberList nl4 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(1),new Long(2), new Long(2), new Long(1)});
         NumberList nl5 = new NumberList(new Long[] {new Long(1), new Long(1), new Long(1), new Long(1), new Long(1), new Long(1)});
         NumberList nl6 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(3), new Long(4), new Long(1), new Long(2), new Long(3), new Long(4)});
+        nl2.addAll(nl2);
+        nl5.addAll(nl);
+        nl6.addAll(nl3);
+        nl.addAll(nl);
 
-
-        nl.addAll(nl2);
-        
         try {
-            displaySuccessIfTrue(nl.equals(new Long[]{new Long(1), new Long(2), new Long(3)}));
+            displaySuccessIfTrue(nl.addAll(null));
+            displaySuccessIfTrue(false);
+        } catch(Exception e) {
+            displaySuccessIfTrue(true);
+        }        
+        try {
+            displaySuccessIfTrue( (nl2.toString()).equals("[1, 2, 3, 1, 2, 3]"));
         } catch(Exception e) {
             displaySuccessIfTrue(true);
         }
+        try {
+            displaySuccessIfTrue((nl5.toString()).equals("[1, 1, 1, 1, 1, 1]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(true);
+        }        
+        try {
+            displaySuccessIfTrue( (nl6.toString()).equals("[1, 2, 3, 4, 1, 2, 3, 4, 1]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(true);
+        }
+        try {
+            displaySuccessIfTrue( (nl.toString()).equals("[]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(true);
+        }                
       
                                 
     }
