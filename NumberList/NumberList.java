@@ -3,13 +3,13 @@ public class NumberList implements java.util.Collection {
 	private int count;
 
 
-    public NumberList(){
+    public NumberList() {
     	this.numberList = new Long[1];
     	count = 0;
 	}
 
 
-    public NumberList(Long[] l){
+    public NumberList(Long[] l) {
     	this.count = l.length;
     	this.numberList = new Long[l.length * 2];
 
@@ -23,33 +23,34 @@ public class NumberList implements java.util.Collection {
     	int nlLength = this.numberList.length;
     	int countArray = 0;
 
-    	if (!(obj instanceof Long)) {
+        if(obj == null) {
+            throw new NullPointerException();
+        } else if (!(obj instanceof Long)) {
     		return false;
     	} else {
-	    	for (int i = 0; i < nlLength; i++) {
-	    		if (this.numberList[i] == null) {
-	    			this.numberList[i] = (Long) obj;
-	    			count++;
-	    			break;
-	    		} else if (countArray == this.count || this.count == nlLength) {
-	    			Long[] tempNl = new Long[nlLength * 2];
+        	for (int i = 0; i < nlLength; i++) {
+        		if (this.numberList[i] == null) {
+        			this.numberList[i] = (Long) obj;
+        			count++;
+        			break;
+        		} else if (countArray == this.count || this.count == nlLength) {
+        			Long[] tempNl = new Long[nlLength * 2];
 
-	    			for (int j = 0; j < nlLength; j++) {
-	    				tempNl[j] = this.numberList[j];
-	    			}
-	    			tempNl[nlLength] = (Long) obj;
-	    			this.numberList = tempNl;
-	    			this.count++;
-	    			break;
-	    		}
-	    		countArray++;
-	    	}
-	    }
+        			for (int j = 0; j < nlLength; j++) {
+        				tempNl[j] = this.numberList[j];
+        			}
+        			tempNl[nlLength] = (Long) obj;
+        			this.numberList = tempNl;
+        			this.count++;
+        			break;
+        		}
+        		countArray++;
+        	}
+        }
 	    return true;
     }
     
 
-    /** Adds all of the elements of the given number list to this one. */
     public boolean addAll(java.util.Collection c) {
 
         if ((NumberList) c == null) {
@@ -78,8 +79,8 @@ public class NumberList implements java.util.Collection {
     }
 
 
-    public boolean contains ( Object obj ) {
-        if(obj == null) {
+    public boolean contains(Object obj) {
+        if (obj == null) {
             throw new NullPointerException();
         } else if (!(obj instanceof Long)) {
             throw new ClassCastException();
@@ -92,14 +93,53 @@ public class NumberList implements java.util.Collection {
         }
         return false;
     }
+
+    //helper method that converts a numberList into a long[]
+    public long[] convertNl( java.util.Collection c) {
+
+        String stringifiedC = ((NumberList) c).toString();
+        String[] elementsOfC = (stringifiedC.substring(1, stringifiedC.length() -1)).split(", ");
+        long[] longsOfC = new long[((NumberList) c).sizeIncludingDuplicates()];
+
+        for(int i = 0; i < elementsOfC.length; i++) {
+            longsOfC[i] = Long.parseLong(elementsOfC[i]);
+        }
+
+        return longsOfC;
+    }
  
 
-    /** Returns true iff this number list contains at least one instance of each element 
-        in the specified list. Multiple copies of some element in the argument do not
-        require multiple copies in this number list. */
     public boolean containsAll ( java.util.Collection c ) {
-        /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
-        throw new UnsupportedOperationException();
+        long[] elementsOfC;
+        boolean containsAllVals = false;
+
+        if ((NumberList) c == null) {
+            throw new NullPointerException();
+        } else if (!(c instanceof NumberList) || (this.count == 0 && ((NumberList) c).sizeIncludingDuplicates() != 0)) {
+            return false;
+        } else if ( ((NumberList) c).sizeIncludingDuplicates() == 0) {
+            return true;
+        } else {
+            elementsOfC = convertNl(c);
+            int contains = 0;
+
+            //i goes over every element in c, and j goes over every element in this list
+            for (int i = 0; i < elementsOfC.length; i++) {
+                for (int j = 0; j < this.count; j++) {
+                    if (this.numberList[j] == elementsOfC[i]) {
+                        contains++;
+                        break;
+                    }
+                }
+            }
+
+            if (contains == elementsOfC.length) {
+                containsAllVals = true;
+            } else {
+                containsAllVals = false;
+            }
+            return containsAllVals;
+        }
     }
  
  
@@ -173,14 +213,30 @@ public class NumberList implements java.util.Collection {
     }
 
 
-
-    /** Removes all of this collection's elements that are also contained 
-        in the specified collection. */
     public boolean removeAll ( java.util.Collection c ) {
-        /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
-        throw new UnsupportedOperationException();
-    }
+        long[] elementsOfC;
+        boolean containsAllVals = false;
 
+        if ((NumberList) c == null) {
+            throw new NullPointerException();
+        } else if (!(c instanceof NumberList)) {
+            return false;
+        } else if ( ((NumberList) c).sizeIncludingDuplicates() == 0 || (this.count == 0)) {
+            return true;
+        } else {
+            elementsOfC = convertNl(c);
+
+            //i goes over every element in c, and j goes over every element in this list
+            for (int i = 0; i < elementsOfC.length; i++) {
+                for (int j = 0; j < this.count; j++) {
+                    while (this.contains(new Long(elementsOfC[i]))) {
+                        this.remove(elementsOfC[i]);
+                    }
+                }
+            }
+            return true;
+        }
+    }
 
 
 
@@ -286,8 +342,8 @@ public class NumberList implements java.util.Collection {
     public static void main ( String[] args ) {
         // Please see NumberListTestHarness.java for tests
 
-    	NumberListTestHarness.main(new String[]{"test away!"});    
-  
+    	NumberListTestHarness.main(new String[]{"test away!"});   
+
 	}
     
 }
