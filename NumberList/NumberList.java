@@ -3,14 +3,12 @@ public class NumberList implements java.util.Collection {
 	private int count;
 
 
-    /** Constructs an empty number list. */ 
     public NumberList(){
     	this.numberList = new Long[1];
     	count = 0;
 	}
 
 
-    /** Constructs a number list from an array of Longs. */
     public NumberList(Long[] l){
     	this.count = l.length;
     	this.numberList = new Long[l.length * 2];
@@ -20,14 +18,14 @@ public class NumberList implements java.util.Collection {
     	}
     }
     
-    /** Increases by one the number of instances of the given element in this collection. */
-    public boolean add ( Object obj ) {
+
+    public boolean add (Object obj) {
     	int nlLength = this.numberList.length;
     	int countArray = 0;
+
     	if (!(obj instanceof Long)) {
     		return false;
     	} else {
-
 	    	for (int i = 0; i < nlLength; i++) {
 	    		if (this.numberList[i] == null) {
 	    			this.numberList[i] = (Long) obj;
@@ -41,42 +39,45 @@ public class NumberList implements java.util.Collection {
 	    			}
 	    			tempNl[nlLength] = (Long) obj;
 	    			this.numberList = tempNl;
-	    			count++;
+	    			this.count++;
 	    			break;
-
 	    		}
 	    		countArray++;
 	    	}
 	    }
-
 	    return true;
     }
     
 
     /** Adds all of the elements of the given number list to this one. */
     public boolean addAll(java.util.Collection c) {
-        Long[] tempN = new Long[this.numberList.length + (c.size() * 2)];
-            int indexToAdd = count;
-            System.out.println(c.toString());
-            // for (int i = 0; i < c.size(); i++) {
-            //     tempN[indexToAdd] = (Long) c.get(i);
-            // }
 
+        if ((NumberList) c == null) {
+            throw new NullPointerException();
+        } else if (!(c instanceof NumberList)) {
+            return false;
+        } else if (((NumberList) c).sizeIncludingDuplicates() == 0) {
+            return true;
+        }
 
-        count += c.size();
+        String stringifiedC = ((NumberList) c).toString();
+        String[] elementsOfC = (stringifiedC.substring(1, stringifiedC.length() -1)).split(", ");
+
+        for(int i = 0; i < elementsOfC.length; i++) {
+            this.add(new Long(Long.parseLong(elementsOfC[i])));
+        }
+
         return true;
     }
- 
 
-    /** Removes all of the elements from this collection. */
+ 
     public void clear () {
         Long[] tempNl = new Long[1];
-        count = 0;
+        this.count = 0;
         this.numberList = tempNl;
     }
- 
 
-    /** Returns true iff this number list contains at least one instance of the specified element. */
+
     public boolean contains ( Object obj ) {
         if(obj == null) {
             throw new NullPointerException();
@@ -93,7 +94,6 @@ public class NumberList implements java.util.Collection {
     }
  
 
-
     /** Returns true iff this number list contains at least one instance of each element 
         in the specified list. Multiple copies of some element in the argument do not
         require multiple copies in this number list. */
@@ -104,18 +104,13 @@ public class NumberList implements java.util.Collection {
  
  
 
-
-    /** Compares the specified object with this collection for equality. */
     public boolean equals(Object obj) {
         if (!(obj instanceof NumberList)) {
             return false;    
-        } else if (this.toString().equals(obj.toString())) {
-            return true;
         } else {
-            return false;
+            return this.toString().equals(obj.toString()) ? true : false;
         }
     }
- 
 
 
 
@@ -127,13 +122,8 @@ public class NumberList implements java.util.Collection {
 
 
 
-    /** Returns true if this collection contains no elements. */
     public boolean isEmpty () {
-    	if (count == 0) {
-    		return true;
-    	} else {
-    		return false;
-    	}
+    	return (count == 0) ? true : false;
     }
 
 
@@ -147,8 +137,6 @@ public class NumberList implements java.util.Collection {
 
 
 
-    /** Removes a single instance of the specified element from 
-        this collection, if it is present. */
     public boolean remove ( Object obj ) {
         Long[] tempNl = new Long[this.numberList.length];
         int indexOfRemovedValue = 0;
@@ -204,7 +192,6 @@ public class NumberList implements java.util.Collection {
 	}
 
 
-    /** Returns the number of elements in this number list, including duplicates. */
     public int sizeIncludingDuplicates() {
     	return this.count;
     }
@@ -220,7 +207,6 @@ public class NumberList implements java.util.Collection {
             return tempN;
         }
         return tempN;  
-
     }
 
 
@@ -259,9 +245,6 @@ public class NumberList implements java.util.Collection {
     }
 
 
-
-
-    /** Returns the number of instances of the given element in this number list. */
     public int count(Object obj) {
     	int tally = 0;
     	for (int i = 0; i < this.count; i++) {
@@ -272,6 +255,7 @@ public class NumberList implements java.util.Collection {
     	return tally;
     }
     
+
 	@Override
 	public String toString () {
         String stringifiedArray = "[";
@@ -281,6 +265,7 @@ public class NumberList implements java.util.Collection {
         	} else {
         		stringifiedArray += (this.numberList[i].toString()) + ", ";
         	}
+
         }
         stringifiedArray += "]";
 
@@ -288,27 +273,21 @@ public class NumberList implements java.util.Collection {
     }
 
 
-    
-    /** This so-called "static factory" returns a new number list comprised of the numbers in the specified array.
-        Note that the given array is long[], not Long[]. */
     public static NumberList fromArray ( long[] l ) {
         NumberList tempNl = new NumberList();
 
         for(int i = 0; i < l.length; i++) {
             tempNl.add(new Long(l[i]));
         }
-
         return tempNl;
     }
 
     
     public static void main ( String[] args ) {
+        // Please see NumberListTestHarness.java for tests
 
-    	// Please see NumberListTestHarness.java for tests
-
-    	NumberListTestHarness.main(new String[]{"test away!"});
-
-	
+    	NumberListTestHarness.main(new String[]{"test away!"});    
+  
 	}
     
 }
