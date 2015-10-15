@@ -24,7 +24,7 @@ public class NumberListTestHarness {
         removeAll_tester();  
         retainAll_tester();    
         toArray_tester();
-
+        hashCode_tester();
 
         System.out.println(successes + "/" + attempts + " tests passed.");
     }
@@ -803,19 +803,22 @@ public class NumberListTestHarness {
         }                                                                                          
     } 
 
-    // private static void convertNl_tester() {
-    //     System.out.println("Testing convertNl...");
+    private static void hashCode_tester() {
+        System.out.println("Testing hashCode...");
 
-    //     NumberList nl = NumberList.fromArray(new long[]{1, 1, 2, 2, 3, 3});
-    //     NumberList tempNl = new NumberList();
+        NumberList nl = NumberList.fromArray(new long[]{1, 1, 2, 2, 3, 3});
+        NumberList nl2 = NumberList.fromArray(new long[]{1, 1, 2, 2, 3, 3});
+        NumberList nl3 = NumberList.fromArray(new long[]{3, 3, 2, 2, 1, 1});
 
-    //     long[] nl2 = nl.convertNl(nl);
-    //     long[] tempnlT = tempNl.convertNl(tempNl);
-
-    //     try {
-    //         displaySuccessIfTrue(nl.toString().equals("[1, 1, 2, 2, 3, 3]"));
-    //     } catch(Exception e) {
-    //         displaySuccessIfTrue(false);
-    //     }
-    // }
+        try {
+            displaySuccessIfTrue(nl.hashCode() == nl2.hashCode() && nl.equals(nl2));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl.hashCode() != nl3.hashCode());
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }        
+    }
 }

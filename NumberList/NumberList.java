@@ -131,7 +131,7 @@ public class NumberList implements java.util.Collection {
         in the specified list. Multiple copies of some element in the argument do not
         require multiple copies in this number list. */
     // Complexity -> O(n^2)
-    public boolean containsAll ( java.util.Collection c ) {
+    public boolean containsAll (java.util.Collection c) {
         long[] elementsOfC;
         boolean containsAllVals = false;
 
@@ -177,9 +177,14 @@ public class NumberList implements java.util.Collection {
 
 
     /** Returns the hashcode value for this collection. */
+    //  Complexity ->  O(n)
     public int hashCode () {
-        /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
-        throw new UnsupportedOperationException();
+        int hashCode = 1;
+        
+        for (Long l : this.numberList) {
+            hashCode = 31 * hashCode + (l == null ? 0 : l.hashCode());    
+        }
+        return hashCode;
     }
 
 
@@ -268,7 +273,7 @@ public class NumberList implements java.util.Collection {
          In other words, removes from this collection all of its elements that are not contained in the 
          specified collection. */
     //  Complexity -> O (n)
-	public boolean retainAll(java.util.Collection c ){
+	public boolean retainAll(java.util.Collection c){
         long[] elementsOfC;
         Long[] tempNl = new Long[this.count];
         int elementIndex = 0;
@@ -332,7 +337,7 @@ public class NumberList implements java.util.Collection {
 
 
     /** Not supported for this class. */
-    public Object[] toArray ( Object[] obj ) {
+    public Object[] toArray (Object[] obj) {
         throw new UnsupportedOperationException();
     }
 
@@ -402,7 +407,7 @@ public class NumberList implements java.util.Collection {
     /** This so-called "static factory" returns a new number list comprised of the numbers in the specified array.
         Note that the given array is long[], not Long[]. */
     // Complexity -> O (n)
-    public static NumberList fromArray ( long[] l ) {
+    public static NumberList fromArray (long[] l) {
         NumberList tempNl = new NumberList();
 
         for(int i = 0; i < l.length; i++) {
@@ -412,10 +417,10 @@ public class NumberList implements java.util.Collection {
     }
 
     
-    public static void main ( String[] args ) {
+    public static void main (String[] args) {
         // Please see NumberListTestHarness.java for tests
 
-    	NumberListTestHarness.main(new String[]{"test away!"});   
+    	NumberListTestHarness.main(new String[]{"test away!"});
 
 	}
     
