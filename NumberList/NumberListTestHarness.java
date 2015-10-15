@@ -21,6 +21,8 @@ public class NumberListTestHarness {
         fromArray_tester();
         equals_tester();
         addAll_tester();
+        containsAll_tester();
+        removeAll_tester();        
 
         System.out.println(successes + "/" + attempts + " tests passed.");
     }
@@ -81,14 +83,20 @@ public class NumberListTestHarness {
     }
 
     private static void adder() {
-        System.out.println("Testing adding objects...");
+        System.out.println("Testing add method...");
         NumberList nl = new NumberList();
+        NumberList nl10 = new NumberList();
         NumberList nl2 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(3)});
         NumberList nl3 = new NumberList(new Long[] {new Long(1)});
+        NumberList nl4 = new NumberList(new Long[] {new Long(1)});
+
         nl.add(new Long(2));
         nl3.add(new Long(2));
         nl3.add(new Long(3));
         nl3.add(4);
+        nl10.add(nl10);
+        nl10.add(nl2); 
+        nl4.add(nl4);
 
         try {
             displaySuccessIfTrue(nl.sizeIncludingDuplicates() == 1);
@@ -110,6 +118,32 @@ public class NumberListTestHarness {
         } catch(Exception e) {
             displaySuccessIfTrue(false);
         }
+        try {
+            displaySuccessIfTrue(nl2.add(null));
+            displaySuccessIfTrue(false);
+        } catch(Exception e) {
+            displaySuccessIfTrue(true);
+        }
+        try {
+            displaySuccessIfTrue((nl3.toString()).equals("[1, 2, 3]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue((nl10.toString()).equals("[]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue((nl10.toString()).equals("[]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue((nl4.toString()).equals("[1]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }                                           
     }
 
     private static void count() {
@@ -329,7 +363,7 @@ public class NumberListTestHarness {
         try {
             displaySuccessIfTrue((nl.toString()).equals("[]"));
         } catch(Exception e) {
-            displaySuccessIfTrue(true);
+            displaySuccessIfTrue(false);
         }
         try {
             displaySuccessIfTrue(nl2.toString().equals("[2, 3]"));
@@ -384,32 +418,32 @@ public class NumberListTestHarness {
         try {
             displaySuccessIfTrue(nl.size() == 0);
         } catch(Exception e) {
-            displaySuccessIfTrue(true);
+            displaySuccessIfTrue(false);
         }
         try {
             displaySuccessIfTrue(nl2.size() == 3);
         } catch(Exception e) {
-            displaySuccessIfTrue(true);
+            displaySuccessIfTrue(false);
         }
         try {
             displaySuccessIfTrue(nl3.size() == 1);
         } catch(Exception e) {
-            displaySuccessIfTrue(true);
+            displaySuccessIfTrue(false);
         }
         try {
             displaySuccessIfTrue(nl4.size() == 2);
         } catch(Exception e) {
-            displaySuccessIfTrue(true);
+            displaySuccessIfTrue(false);
         }
         try {
             displaySuccessIfTrue(nl5.size() == 1);
         } catch(Exception e) {
-            displaySuccessIfTrue(true);
+            displaySuccessIfTrue(false);
         }
         try {
             displaySuccessIfTrue(nl6.size() == 4);
         } catch(Exception e) {
-            displaySuccessIfTrue(true);
+            displaySuccessIfTrue(false);
         }                        
     }                               
     private static void toArray_tester() {
@@ -428,12 +462,12 @@ public class NumberListTestHarness {
         try {
             displaySuccessIfTrue(Arrays.deepEquals(nlTest, new Long[]{}));
         } catch(Exception e) {
-            displaySuccessIfTrue(true);
+            displaySuccessIfTrue(false);
         }
         try {
             displaySuccessIfTrue(Arrays.deepEquals(nl2Test, (new Long[]{new Long(1), new Long(2), new Long(3)})));
         } catch(Exception e) {
-            displaySuccessIfTrue(true);
+            displaySuccessIfTrue(false);
         }        
                                 
     }       
@@ -459,25 +493,24 @@ public class NumberListTestHarness {
         try {
             displaySuccessIfTrue( (nl2.toString()).equals("[1, 2, 3, 1, 2, 3]"));
         } catch(Exception e) {
-            displaySuccessIfTrue(true);
+            displaySuccessIfTrue(false);
         }
         try {
             displaySuccessIfTrue((nl5.toString()).equals("[1, 1, 1, 1, 1, 1]"));
         } catch(Exception e) {
-            displaySuccessIfTrue(true);
+            displaySuccessIfTrue(false);
         }        
         try {
             displaySuccessIfTrue( (nl6.toString()).equals("[1, 2, 3, 4, 1, 2, 3, 4, 1]"));
         } catch(Exception e) {
-            displaySuccessIfTrue(true);
+            displaySuccessIfTrue(false);
         }
         try {
             displaySuccessIfTrue( (nl.toString()).equals("[]"));
         } catch(Exception e) {
-            displaySuccessIfTrue(true);
+            displaySuccessIfTrue(false);
         }                
       
-                                
     }
     private static void fromArray_tester() {
         System.out.println("Testing fromArray...");
@@ -490,17 +523,17 @@ public class NumberListTestHarness {
         try {
             displaySuccessIfTrue(nl.toString().equals("[1, 2, 3, 4, 5]"));
         } catch(Exception e) {
-            displaySuccessIfTrue(true);
+            displaySuccessIfTrue(false);
         }
         try {
             displaySuccessIfTrue(nl2.toString().equals("[1]"));
         } catch(Exception e) {
-            displaySuccessIfTrue(true);
+            displaySuccessIfTrue(false);
         }
         try {
             displaySuccessIfTrue(nl3.toString().equals("[]"));
         } catch(Exception e) {
-            displaySuccessIfTrue(true);
+            displaySuccessIfTrue(false);
         }                                          
     }                  
     private static void equals_tester() {
@@ -522,39 +555,159 @@ public class NumberListTestHarness {
         try {
             displaySuccessIfTrue(nl.equals(nl2));
         } catch(Exception e) {
-            displaySuccessIfTrue(true);
+            displaySuccessIfTrue(false);
         }
         try {
             displaySuccessIfTrue(nl3.equals(nl4));
         } catch(Exception e) {
-            displaySuccessIfTrue(true);
+            displaySuccessIfTrue(false);
         }
         try {
             displaySuccessIfTrue(!(nl3.equals(s)));
         } catch(Exception e) {
-            displaySuccessIfTrue(true);
+            displaySuccessIfTrue(false);
         }
         try {
             displaySuccessIfTrue(nl5.equals(nl6));
         } catch(Exception e) {
-            displaySuccessIfTrue(true);
+            displaySuccessIfTrue(false);
         }
         try {
             displaySuccessIfTrue(!(nl.equals(nl6)));
         } catch(Exception e) {
-            displaySuccessIfTrue(true);
+            displaySuccessIfTrue(false);
         }                                                                    
     }  
 
+    private static void containsAll_tester() {
+        System.out.println("Testing ContainsAll...");
+
+        NumberList nl = NumberList.fromArray(new long[]{1,2,3,4,5});
+        NumberList nl2 = NumberList.fromArray(new long[]{1,2,3,4,5});
+        NumberList nl3 = NumberList.fromArray(new long[]{1,2,3,4});
+        NumberList nl4 = NumberList.fromArray(new long[]{5});
+        NumberList nl5 = NumberList.fromArray(new long[]{1});
+        NumberList nl6 = NumberList.fromArray(new long[]{});
+        NumberList nll = NumberList.fromArray(new long[]{1,2,3,1, 2, 1, 1, 1, 1, 1, 1, 1, 9});
+        NumberList nll2 = NumberList.fromArray(new long[]{1,2,3,1, 2, 1, 1, 1, 1, 1, 1, 1, 1});
 
 
+        try {
+            displaySuccessIfTrue(nl.containsAll(nl));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl.containsAll(nl2));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl.containsAll(nl3));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl.containsAll(nl4));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl.containsAll(nl5));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(!(nl5.containsAll(nl3)));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(!(nl6.containsAll(nl)));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(!(nl3.containsAll(nl4)));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }    
+        try {
+            displaySuccessIfTrue(!(nll.containsAll(nl)));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nll.containsAll(nll2));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl6.containsAll(nl6));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }                                                                                            
+    }
+
+    private static void removeAll_tester() {
+        System.out.println("Testing removeAll...");
+
+        NumberList nl = NumberList.fromArray(new long[]{1, 1, 2, 2, 3, 3});
+        NumberList nl2 = NumberList.fromArray(new long[]{1,2,3});
+        NumberList nl3 = NumberList.fromArray(new long[]{1,2,2,2,2,2,2,2,2,2,2,2,5});
+        NumberList nl4 = NumberList.fromArray(new long[]{5});
+        NumberList nl5 = NumberList.fromArray(new long[]{1});
+        NumberList nl6 = NumberList.fromArray(new long[]{});
+        NumberList nll = NumberList.fromArray(new long[]{1,2,3,1, 2, 1, 1, 1, 1, 1, 1, 1, 9});
+        NumberList nll2 = NumberList.fromArray(new long[]{1,2,3,1, 2, 1, 1, 1, 1, 1, 1, 1, 1});
+        NumberList nl33 = NumberList.fromArray(new long[]{1, 1, 1,2, 2, 2, 3, 3, 3});
 
 
+        nl.removeAll(nl2);
+        nl33.removeAll(nl2);
+        nl2.removeAll(nl3);
+        nl3.removeAll(nl4);
+        nl4.removeAll(nl6);
+        nll.removeAll(nll2);
 
+        try {
+            displaySuccessIfTrue(nl.toString().equals("[]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl2.toString().equals("[3]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl.removeAll(null));
+            displaySuccessIfTrue(false);
 
-
-
-
-
+        } catch(Exception e) {
+            displaySuccessIfTrue(true);
+        }
+        try {
+            displaySuccessIfTrue(nl33.toString().equals("[]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl3.toString().equals("[1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nl4.toString().equals("[5]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(nll.toString().equals("[9]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }                          
+                                                                                          
+    }        
 
 }
