@@ -1,8 +1,8 @@
 public class LinkedDeque {
 	private int size;
-	private Object left;
-	private Object right;
-	
+	private Node left;
+	private Node right;
+
 	public LinkedDeque() {
 		left = null;
 		right = null;
@@ -31,18 +31,17 @@ public class LinkedDeque {
 
 	public Object left() {
 		// returns the left element without modifiying the deque
-		throw new UnsupportedOperationException();
+		return this.left;
 
 	}
 
 	public Object right() {
 		// returns the right element without modifiying the deque
-		throw new UnsupportedOperationException();
-
+        return this.right;
 	}
 
 	public int size() {
-        return size;
+        return this.size;
 
 	}
 
@@ -53,7 +52,7 @@ public class LinkedDeque {
 	} 
 
 	public static void main(String[] args) {
-		// runs a comprehensive set of unit tests
+        LinkedDequeTestHarness.main(new String[]{"tester"});
 
 	}
 
