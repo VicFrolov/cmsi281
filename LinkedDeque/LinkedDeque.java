@@ -1,9 +1,12 @@
 public class LinkedDeque {
-	int size;
+	private int size;
+	private Object left;
+	private Object right;
 	
 	public LinkedDeque() {
-        throw new UnsupportedOperationException();
-
+		left = null;
+		right = null;
+		size = 0;
 	}
 
 	public void insertLeft(Object o) {
@@ -39,7 +42,7 @@ public class LinkedDeque {
 	}
 
 	public int size() {
-        throw new UnsupportedOperationException();
+        return size;
 
 	}
 
@@ -51,7 +54,7 @@ public class LinkedDeque {
 
 	public static void main(String[] args) {
 		// runs a comprehensive set of unit tests
-		
+
 	}
 
 }
