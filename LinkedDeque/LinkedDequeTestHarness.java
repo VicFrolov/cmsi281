@@ -24,12 +24,12 @@ public class LinkedDequeTestHarness {
         LinkedDeque d = new LinkedDeque();
 
         try {
-            displaySuccessIfTrue(d.left().equals(null));
+            displaySuccessIfTrue(d.left() == null);
         } catch(Exception e) {
             displaySuccessIfTrue(false);
         }
         try {
-            displaySuccessIfTrue(d.right().equals(null));
+            displaySuccessIfTrue(d.right() == null);
         } catch(Exception e) {
             displaySuccessIfTrue(false);
         }
