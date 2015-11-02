@@ -9,8 +9,10 @@ public class LinkedDequeTestHarness {
 
         test_Constructor();
         test_Node();
-        test_insertLeft();
-        test_insertRight();
+        test_left();
+
+        // test_insertLeft();
+        // test_insertRight();
 
         System.out.println(successes + "/" + attempts + " tests passed.");
     }
@@ -84,115 +86,142 @@ public class LinkedDequeTestHarness {
 
     }
 
-    private static void test_insertLeft() {
-        System.out.println("Testing insertLeft...");
+    private static void test_left() {
+        System.out.println("testing left() method...");
         LinkedDeque d = new LinkedDeque();
-        d.insertLeft(new Long(5));
-        Node n1 = (Node) d.left();
 
-        try {
-            displaySuccessIfTrue(d.size() == 1);
-        } catch(Exception e) {
-            displaySuccessIfTrue(false);
-        }
-        try {
-            displaySuccessIfTrue(d.right() == d.left());
-        } catch(Exception e) {
-            displaySuccessIfTrue(false);
-        }
-        try {
-            displaySuccessIfTrue(n1.getData().equals(new Long(5)));
-        } catch(Exception e) {
-            displaySuccessIfTrue(false);
-        }
+        d.insertLeft(new Long(1));
+        d.insertRight(new Long(10));
+        d.insertRight(new Long(12));
+        d.insertLeft(new Long(100));
+        d.insertRight(new Long(20));
 
-        d.insertLeft(new Long(6));
-        n1 = (Node) d.left();
+        System.out.println(d.left());
+        try {
+            displaySuccessIfTrue(d.left().equals(new Long(100)));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(d.right().equals(new Long(20)));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }          
 
-        try {
-            displaySuccessIfTrue(n1.getData().equals(new Long(6)));
-        } catch(Exception e) {
-            displaySuccessIfTrue(false);
-        }
-        try {
-            displaySuccessIfTrue(n1.getNext().getData().equals(new Long(5)));
-        } catch(Exception e) {
-            displaySuccessIfTrue(false);
-        }
-        try {
-            displaySuccessIfTrue(d.size() == 2);
-        } catch(Exception e) {
-            displaySuccessIfTrue(false);
-        }
-        try {
-            displaySuccessIfTrue(((Node) d.right()).getData().equals(new Long(5)));
-        } catch(Exception e) {
-            displaySuccessIfTrue(false);
-        }                           
 
     }
 
-    private static void test_insertRight() {
-        System.out.println("Testing insertLeft...");
-        LinkedDeque d = new LinkedDeque();
-        d.insertRight(new Long(2));
-        d.insertLeft(new Long(1));
-        d.insertRight(new Long(3));
-        Node n1 = (Node) d.left();
-        Node n3 = (Node) d.right();
-        Node n2 = ((Node) (d.left())).getNext();
+    // private static void test_insertLeft() {
+    //     System.out.println("Testing insertLeft...");
+    //     LinkedDeque d = new LinkedDeque();
+    //     d.insertLeft(new Long(5));
+    //     Node n1 = (Node) d.left();
+
+    //     try {
+    //         displaySuccessIfTrue(d.size() == 1);
+    //     } catch(Exception e) {
+    //         displaySuccessIfTrue(false);
+    //     }
+    //     try {
+    //         displaySuccessIfTrue(d.right() == d.left());
+    //     } catch(Exception e) {
+    //         displaySuccessIfTrue(false);
+    //     }
+    //     try {
+    //         displaySuccessIfTrue(n1.getData().equals(new Long(5)));
+    //     } catch(Exception e) {
+    //         displaySuccessIfTrue(false);
+    //     }
+
+    //     d.insertLeft(new Long(6));
+    //     n1 = (Node) d.left();
+
+    //     try {
+    //         displaySuccessIfTrue(n1.getData().equals(new Long(6)));
+    //     } catch(Exception e) {
+    //         displaySuccessIfTrue(false);
+    //     }
+    //     try {
+    //         displaySuccessIfTrue(n1.getNext().getData().equals(new Long(5)));
+    //     } catch(Exception e) {
+    //         displaySuccessIfTrue(false);
+    //     }
+    //     try {
+    //         displaySuccessIfTrue(d.size() == 2);
+    //     } catch(Exception e) {
+    //         displaySuccessIfTrue(false);
+    //     }
+    //     try {
+    //         displaySuccessIfTrue(((Node) d.right()).getData().equals(new Long(5)));
+    //     } catch(Exception e) {
+    //         displaySuccessIfTrue(false);
+    //     }                           
+
+    // }
+
+    // private static void test_insertRight() {
+    //     System.out.println("Testing insertLeft...");
+    //     LinkedDeque d = new LinkedDeque();
+    //     d.insertRight(new Long(2));
+    //     d.insertLeft(new Long(1));
+    //     d.insertRight(new Long(3));
+    //     Node n1 = (Node) d.left();
+    //     Node n3 = (Node) d.right();
+    //     Node n2 = ((Node) (d.left())).getNext();
 
 
-        try {
-            displaySuccessIfTrue(d.size() == 3);
-        } catch(Exception e) {
-            displaySuccessIfTrue(false);
-        }
-        try {
-            displaySuccessIfTrue(n1.getNext().getData().equals(new Long(2)));
-        } catch(Exception e) {
-            displaySuccessIfTrue(false);
-        }
-        try {
-            displaySuccessIfTrue(n1.getPrevious() == null);
-        } catch(Exception e) {
-            displaySuccessIfTrue(false);
-        }
-        try {
-            displaySuccessIfTrue(n1.getData().equals(new Long(1)));
-        } catch(Exception e) {
-            displaySuccessIfTrue(false);
-        }
-        try {
-            displaySuccessIfTrue(n3.getPrevious().getData().equals(new Long(2)));
-        } catch(Exception e) {
-            displaySuccessIfTrue(false);
-        }
-        try {
-            displaySuccessIfTrue(n3.getData().equals(new Long(3)));
-        } catch(Exception e) {
-            displaySuccessIfTrue(false);
-        }
-        try {
-            displaySuccessIfTrue((n3.getNext() == null));
-        } catch(Exception e) {
-            displaySuccessIfTrue(false);
-        }
-        try {
-            displaySuccessIfTrue(n2.getPrevious().getData().equals(new Long(1)));
-        } catch(Exception e) {
-            displaySuccessIfTrue(false);
-        }
-        try {
-            displaySuccessIfTrue(n2.getData().equals(new Long(2)));
-        } catch(Exception e) {
-            displaySuccessIfTrue(false);
-        }
-        try {
-            displaySuccessIfTrue((n2.getNext().getData().equals(new Long(3))));
-        } catch(Exception e) {
-            displaySuccessIfTrue(false);
-        }                                              
-    }    
+    //     try {
+    //         displaySuccessIfTrue(d.size() == 3);
+    //     } catch(Exception e) {
+    //         displaySuccessIfTrue(false);
+    //     }
+    //     try {
+    //         displaySuccessIfTrue(n1.getNext().getData().equals(new Long(2)));
+    //     } catch(Exception e) {
+    //         displaySuccessIfTrue(false);
+    //     }
+    //     try {
+    //         displaySuccessIfTrue(n1.getPrevious() == null);
+    //     } catch(Exception e) {
+    //         displaySuccessIfTrue(false);
+    //     }
+    //     try {
+    //         displaySuccessIfTrue(n1.getData().equals(new Long(1)));
+    //     } catch(Exception e) {
+    //         displaySuccessIfTrue(false);
+    //     }
+    //     try {
+    //         displaySuccessIfTrue(n3.getPrevious().getData().equals(new Long(2)));
+    //     } catch(Exception e) {
+    //         displaySuccessIfTrue(false);
+    //     }
+    //     try {
+    //         displaySuccessIfTrue(n3.getData().equals(new Long(3)));
+    //     } catch(Exception e) {
+    //         displaySuccessIfTrue(false);
+    //     }
+    //     try {
+    //         displaySuccessIfTrue((n3.getNext() == null));
+    //     } catch(Exception e) {
+    //         displaySuccessIfTrue(false);
+    //     }
+    //     try {
+    //         displaySuccessIfTrue(n2.getPrevious().getData().equals(new Long(1)));
+    //     } catch(Exception e) {
+    //         displaySuccessIfTrue(false);
+    //     }
+    //     try {
+    //         displaySuccessIfTrue(n2.getData().equals(new Long(2)));
+    //     } catch(Exception e) {
+    //         displaySuccessIfTrue(false);
+    //     }
+    //     try {
+    //         displaySuccessIfTrue((n2.getNext().getData().equals(new Long(3))));
+    //     } catch(Exception e) {
+    //         displaySuccessIfTrue(false);
+    //     }
+
+                                             
+    // }    
 
 }

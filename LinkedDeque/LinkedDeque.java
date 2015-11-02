@@ -45,11 +45,21 @@ public class LinkedDeque {
 	}
 
 	public Object left() {
-		return this.left;
+		if (this.size == 0) {
+			return null;
+		}
+        else {
+			return this.left.getData();
+		}
 	}
 
 	public Object right() {
-        return this.right;
+		if (this.size == 0) {
+			return null;
+		}
+        else {
+         	return this.right.getData();
+        }
 	}
 
 	public int size() {
