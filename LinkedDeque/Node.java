@@ -3,14 +3,14 @@ public class Node {
 	private Node next;
 	private Node previous;
 
-	public Node(Object data, Node next, Node previous) {
+	public Node(Object data, Node previous, Node next) {
 		this.data = data;
 		this.next = next;
 		this.previous = previous;
 
 	}
 
-	public Node getnext() {
+	public Node getNext() {
 		return this.next;
 	}
 
@@ -22,7 +22,17 @@ public class Node {
 		this.next = n;
 	}
 
+	public void setPrevious(Node n) {
+		this.previous = n;
+	}
+
+	public Object getData() {
+		return this.data;
+	}
+
 	public void setData(Object o) {
 		this.data = o;
 	}
+
+
 }
