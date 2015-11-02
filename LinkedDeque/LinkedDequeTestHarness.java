@@ -10,7 +10,7 @@ public class LinkedDequeTestHarness {
         test_Constructor();
         test_Node();
         test_left();
-
+        test_toString();
         // test_insertLeft();
         // test_insertRight();
 
@@ -87,7 +87,7 @@ public class LinkedDequeTestHarness {
     }
 
     private static void test_left() {
-        System.out.println("testing left() method...");
+        System.out.println("testing left() and right() methods...");
         LinkedDeque d = new LinkedDeque();
 
         d.insertLeft(new Long(1));
@@ -96,7 +96,6 @@ public class LinkedDequeTestHarness {
         d.insertLeft(new Long(100));
         d.insertRight(new Long(20));
 
-        System.out.println(d.left());
         try {
             displaySuccessIfTrue(d.left().equals(new Long(100)));
         } catch(Exception e) {
@@ -110,6 +109,41 @@ public class LinkedDequeTestHarness {
 
 
     }
+
+    private static void test_toString() {
+        System.out.println("testing toString()");
+        LinkedDeque d = new LinkedDeque();
+        LinkedDeque d2 = new LinkedDeque();
+        LinkedDeque d3 = new LinkedDeque();
+
+        d.insertLeft(new Long(1));
+        d.insertRight(new Long(10));
+        d.insertRight(new Long(12));
+        d.insertLeft(new Long(100));
+        d.insertRight(new Long(20));
+
+        d2.insertLeft(new String("Hi"));
+        d2.insertLeft(new String("Bye"));
+        d2.insertRight(new String("No"));
+
+        try {
+            displaySuccessIfTrue(d.toString().equals("[100][1][10][12][20]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(d2.toString().equals("[Bye][Hi][No]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(d3.toString() == null);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }                  
+
+
+    }    
 
     // private static void test_insertLeft() {
     //     System.out.println("Testing insertLeft...");

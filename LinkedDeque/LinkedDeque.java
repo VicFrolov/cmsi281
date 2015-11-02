@@ -67,8 +67,18 @@ public class LinkedDeque {
 	}
 
 	public String toString(){
-		// returns [obj][obj]...[obj]
-        throw new UnsupportedOperationException();
+		//return null if LinkedDeque is empty
+		if (this.size == 0) {
+			return null;
+		} else {
+			Node temp = this.left;
+			String stringifiedLinkedDeque = "";
+			while(temp != null) {
+				stringifiedLinkedDeque += "[" + temp.getData() + "]";
+				temp = temp.getNext();
+			}
+			return stringifiedLinkedDeque;
+		}
 	} 
 
 	public static void main(String[] args) {
