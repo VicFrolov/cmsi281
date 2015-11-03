@@ -11,8 +11,8 @@ public class LinkedDequeTestHarness {
         test_Node();
         test_left();
         test_toString();
-        // test_insertLeft();
-        // test_insertRight();
+        test_insertLeft();
+        test_insertRight();
 
         System.out.println(successes + "/" + attempts + " tests passed.");
     }
@@ -145,117 +145,70 @@ public class LinkedDequeTestHarness {
 
     }    
 
-    // private static void test_insertLeft() {
-    //     System.out.println("Testing insertLeft...");
-    //     LinkedDeque d = new LinkedDeque();
-    //     d.insertLeft(new Long(5));
-    //     Node n1 = (Node) d.left();
+    private static void test_insertLeft() {
+        System.out.println("Testing insertLeft...");
+        LinkedDeque d = new LinkedDeque();
+        d.insertLeft(new Long(5));
+        String d1 = d.toString();
 
-    //     try {
-    //         displaySuccessIfTrue(d.size() == 1);
-    //     } catch(Exception e) {
-    //         displaySuccessIfTrue(false);
-    //     }
-    //     try {
-    //         displaySuccessIfTrue(d.right() == d.left());
-    //     } catch(Exception e) {
-    //         displaySuccessIfTrue(false);
-    //     }
-    //     try {
-    //         displaySuccessIfTrue(n1.getData().equals(new Long(5)));
-    //     } catch(Exception e) {
-    //         displaySuccessIfTrue(false);
-    //     }
+        try {
+            displaySuccessIfTrue(d.size() == 1);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(d.right() == d.left());
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(d1.equals("[5]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
 
-    //     d.insertLeft(new Long(6));
-    //     n1 = (Node) d.left();
+        d.insertLeft(new Long(6));
+        String d2 = d.toString();
 
-    //     try {
-    //         displaySuccessIfTrue(n1.getData().equals(new Long(6)));
-    //     } catch(Exception e) {
-    //         displaySuccessIfTrue(false);
-    //     }
-    //     try {
-    //         displaySuccessIfTrue(n1.getNext().getData().equals(new Long(5)));
-    //     } catch(Exception e) {
-    //         displaySuccessIfTrue(false);
-    //     }
-    //     try {
-    //         displaySuccessIfTrue(d.size() == 2);
-    //     } catch(Exception e) {
-    //         displaySuccessIfTrue(false);
-    //     }
-    //     try {
-    //         displaySuccessIfTrue(((Node) d.right()).getData().equals(new Long(5)));
-    //     } catch(Exception e) {
-    //         displaySuccessIfTrue(false);
-    //     }                           
+        try {
+            displaySuccessIfTrue(d.left().equals(new Long(6)));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(d2.equals("[6][5]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(d.size() == 2);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }                         
 
-    // }
+    }
 
-    // private static void test_insertRight() {
-    //     System.out.println("Testing insertLeft...");
-    //     LinkedDeque d = new LinkedDeque();
-    //     d.insertRight(new Long(2));
-    //     d.insertLeft(new Long(1));
-    //     d.insertRight(new Long(3));
-    //     Node n1 = (Node) d.left();
-    //     Node n3 = (Node) d.right();
-    //     Node n2 = ((Node) (d.left())).getNext();
+    private static void test_insertRight() {
+        System.out.println("Testing insertLeft...");
+        LinkedDeque d = new LinkedDeque();
+        d.insertRight(new Long(2));
+        d.insertLeft(new Long(1));
+        d.insertRight(new Long(3));
+        String dString = d.toString();
 
 
-    //     try {
-    //         displaySuccessIfTrue(d.size() == 3);
-    //     } catch(Exception e) {
-    //         displaySuccessIfTrue(false);
-    //     }
-    //     try {
-    //         displaySuccessIfTrue(n1.getNext().getData().equals(new Long(2)));
-    //     } catch(Exception e) {
-    //         displaySuccessIfTrue(false);
-    //     }
-    //     try {
-    //         displaySuccessIfTrue(n1.getPrevious() == null);
-    //     } catch(Exception e) {
-    //         displaySuccessIfTrue(false);
-    //     }
-    //     try {
-    //         displaySuccessIfTrue(n1.getData().equals(new Long(1)));
-    //     } catch(Exception e) {
-    //         displaySuccessIfTrue(false);
-    //     }
-    //     try {
-    //         displaySuccessIfTrue(n3.getPrevious().getData().equals(new Long(2)));
-    //     } catch(Exception e) {
-    //         displaySuccessIfTrue(false);
-    //     }
-    //     try {
-    //         displaySuccessIfTrue(n3.getData().equals(new Long(3)));
-    //     } catch(Exception e) {
-    //         displaySuccessIfTrue(false);
-    //     }
-    //     try {
-    //         displaySuccessIfTrue((n3.getNext() == null));
-    //     } catch(Exception e) {
-    //         displaySuccessIfTrue(false);
-    //     }
-    //     try {
-    //         displaySuccessIfTrue(n2.getPrevious().getData().equals(new Long(1)));
-    //     } catch(Exception e) {
-    //         displaySuccessIfTrue(false);
-    //     }
-    //     try {
-    //         displaySuccessIfTrue(n2.getData().equals(new Long(2)));
-    //     } catch(Exception e) {
-    //         displaySuccessIfTrue(false);
-    //     }
-    //     try {
-    //         displaySuccessIfTrue((n2.getNext().getData().equals(new Long(3))));
-    //     } catch(Exception e) {
-    //         displaySuccessIfTrue(false);
-    //     }
+        try {
+            displaySuccessIfTrue(d.size() == 3);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(dString.equals("[1][2][3]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
 
                                              
-    // }    
+    }    
 
 }
