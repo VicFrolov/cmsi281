@@ -47,7 +47,6 @@ public class LinkedDeque {
 			this.left.setPrevious(null);
 			size--;
 		}
-
 	}
 
 	public void deleteRight() {
@@ -63,7 +62,6 @@ public class LinkedDeque {
 			this.right.setNext(null);
 			size--;
 		}
-
 	}
 
 	public Object left() {
@@ -95,7 +93,7 @@ public class LinkedDeque {
 		} else {
 			Node temp = this.left;
 			String stringifiedLinkedDeque = "";
-			while(temp != null) {
+			while (temp != null) {
 				stringifiedLinkedDeque += "[" + temp.getData() + "]";
 				temp = temp.getNext();
 			}
@@ -105,7 +103,6 @@ public class LinkedDeque {
 
 	public static void main(String[] args) {
         LinkedDequeTestHarness.main(new String[]{"tester"});
-
 	}
 
 }

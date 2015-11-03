@@ -85,7 +85,6 @@ public class LinkedDequeTestHarness {
         } catch(Exception e) {
             displaySuccessIfTrue(false);
         }        
-
     }
 
     private static void test_left() {
@@ -119,8 +118,6 @@ public class LinkedDequeTestHarness {
         } catch(Exception e) {
             displaySuccessIfTrue(false);
         }                  
-
-
     }
 
     private static void test_toString() {
@@ -154,8 +151,6 @@ public class LinkedDequeTestHarness {
         } catch(Exception e) {
             displaySuccessIfTrue(false);
         }                  
-
-
     }    
 
     private static void test_insertLeft() {
@@ -198,7 +193,6 @@ public class LinkedDequeTestHarness {
         } catch(Exception e) {
             displaySuccessIfTrue(false);
         }                         
-
     }
 
     private static void test_insertRight() {
@@ -333,6 +327,5 @@ public class LinkedDequeTestHarness {
             displaySuccessIfTrue(false);
         }                                                           
     }     
-
 
 }
