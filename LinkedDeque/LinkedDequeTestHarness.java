@@ -14,7 +14,7 @@ public class LinkedDequeTestHarness {
         test_insertLeft();
         test_insertRight();
         test_deleteLeft();
-
+        test_deleteRight();
 
         System.out.println(successes + "/" + attempts + " tests passed.");
     }
@@ -91,6 +91,7 @@ public class LinkedDequeTestHarness {
     private static void test_left() {
         System.out.println("testing left() and right() methods...");
         LinkedDeque d = new LinkedDeque();
+        LinkedDeque d2 = new LinkedDeque();
 
         d.insertLeft(new Long(1));
         d.insertRight(new Long(10));
@@ -107,7 +108,17 @@ public class LinkedDequeTestHarness {
             displaySuccessIfTrue(d.right().equals(new Long(20)));
         } catch(Exception e) {
             displaySuccessIfTrue(false);
-        }          
+        }
+        try {
+            displaySuccessIfTrue(d2.left() == null);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(d2.right() == null);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }                  
 
 
     }
@@ -191,7 +202,7 @@ public class LinkedDequeTestHarness {
     }
 
     private static void test_insertRight() {
-        System.out.println("Testing insertLeft...");
+        System.out.println("Testing insertRight...");
         LinkedDeque d = new LinkedDeque();
         d.insertRight(new Long(2));
         d.insertLeft(new Long(1));
@@ -209,7 +220,8 @@ public class LinkedDequeTestHarness {
         } catch(Exception e) {
             displaySuccessIfTrue(false);
         }                                  
-    }    
+    } 
+
     private static void test_deleteLeft() {
         System.out.println("Testing deleteLeft...");
         LinkedDeque d = new LinkedDeque();
@@ -229,12 +241,11 @@ public class LinkedDequeTestHarness {
         d3.insertLeft(new Long(99));
         d3.deleteLeft();
         d3.deleteLeft();
+
         String d3String = d3.toString();
-
-
-
         String dString = d.toString();
         String d2String = d2.toString();
+        
         try {
             displaySuccessIfTrue(dString.equals("[2][3][sup banana face]"));
         } catch(Exception e) {
@@ -265,7 +276,63 @@ public class LinkedDequeTestHarness {
         } catch(Exception e) {
             displaySuccessIfTrue(false);
         }                                                           
-    }  
+    } 
+
+    private static void test_deleteRight() {
+        System.out.println("Testing deleteRight...");
+        LinkedDeque d = new LinkedDeque();
+        LinkedDeque d2 = new LinkedDeque();
+        LinkedDeque d3 = new LinkedDeque();
+
+        d.insertRight(new Long(2));
+        d.insertLeft(new Long(1));
+        d.insertRight(new Long(3));
+        d.insertRight(new String("sup banana face"));
+        d.deleteRight();
+
+        d2.insertLeft(new Long(10));
+        d2.deleteRight();
+
+        d3.insertRight(new Long(100));
+        d3.insertLeft(new Long(99));
+        d3.deleteRight();
+        d3.deleteLeft();
+
+        String d3String = d3.toString();
+        String dString = d.toString();
+        String d2String = d2.toString();
+
+        try {
+            displaySuccessIfTrue(dString.equals("[1][2][3]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(d.size() == 3);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }     
+        try {
+            displaySuccessIfTrue(d2String == null);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(d2.size() == 0);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(d3String == null);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(d3.size() == 0);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }                                                           
+    }     
 
 
 }
