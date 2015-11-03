@@ -13,6 +13,8 @@ public class LinkedDequeTestHarness {
         test_toString();
         test_insertLeft();
         test_insertRight();
+        test_deleteLeft();
+
 
         System.out.println(successes + "/" + attempts + " tests passed.");
     }
@@ -206,9 +208,64 @@ public class LinkedDequeTestHarness {
             displaySuccessIfTrue(dString.equals("[1][2][3]"));
         } catch(Exception e) {
             displaySuccessIfTrue(false);
-        }
-
-                                             
+        }                                  
     }    
+    private static void test_deleteLeft() {
+        System.out.println("Testing deleteLeft...");
+        LinkedDeque d = new LinkedDeque();
+        LinkedDeque d2 = new LinkedDeque();
+        LinkedDeque d3 = new LinkedDeque();
+
+        d.insertRight(new Long(2));
+        d.insertLeft(new Long(1));
+        d.insertRight(new Long(3));
+        d.insertRight(new String("sup banana face"));
+        d.deleteLeft();
+
+        d2.insertLeft(new Long(10));
+        d2.deleteLeft();
+
+        d3.insertRight(new Long(100));
+        d3.insertLeft(new Long(99));
+        d3.deleteLeft();
+        d3.deleteLeft();
+        String d3String = d3.toString();
+
+
+
+        String dString = d.toString();
+        String d2String = d2.toString();
+        try {
+            displaySuccessIfTrue(dString.equals("[2][3][sup banana face]"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(d.size() == 3);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }     
+        try {
+            displaySuccessIfTrue(d2String == null);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(d2.size() == 0);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(d3String == null);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(d3.size() == 0);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }                                                           
+    }  
+
 
 }

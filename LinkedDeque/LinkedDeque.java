@@ -35,7 +35,18 @@ public class LinkedDeque {
 	}
 
 	public void deleteLeft() {
-        throw new UnsupportedOperationException();
+		if (this.size == 0) {
+			//cannot throw NoSuchElementException without importing
+			throw new UnsupportedOperationException("the LinkedDeque is already empty");
+		} else if (this.size == 1) {
+			this.left = null;
+			this.right = this.left;
+			size--;
+		} else {
+			this.left = this.left.getNext();
+			this.left.setPrevious(null);
+			size--;
+		}
 
 	}
 
