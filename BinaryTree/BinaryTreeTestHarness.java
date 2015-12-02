@@ -24,6 +24,8 @@ public class BinaryTreeTestHarness {
     private static void test_NodeConstructor() {
         System.out.println("Testing Node Constructor...");
         Node n = new Node(new Long(10), null);
+        BinaryTree bt = new BinaryTree();
+        BinaryTree bt2 = new BinaryTree(new Node(new String("root"), null));
 
         try {
             displaySuccessIfTrue(n.getParent() == null);
@@ -39,7 +41,28 @@ public class BinaryTreeTestHarness {
             displaySuccessIfTrue(n.getLeftSon() == null && n.getRightSon() == null);
         } catch(Exception e) {
             displaySuccessIfTrue(false);
-        }                                       
+        }
+
+        try {
+            displaySuccessIfTrue(bt.size() == 0);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(bt2.size() == 1);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(bt2.contains("root") == true);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(bt2.contains("roote") == false);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }                                                    
     }
 
     private static void test_Nodes() {
@@ -124,6 +147,65 @@ public class BinaryTreeTestHarness {
             displaySuccessIfTrue(n4.getData().equals("left son of n3"));
         } catch(Exception e) {
             displaySuccessIfTrue(false);
-        }         
-    }    
+        }
+        System.out.println("Secondary pointer Node Tests");
+
+        Node testNodeRoot = new Node(new String("root"), null);
+        Node testNodeDangler = new Node(new String("I dangle"), null);
+
+        Node level1Left = new Node(new String("left son of root"), testNodeRoot);
+        testNodeRoot.setLeftSon(level1Left);
+
+        testNodeRoot.setAndCreateRightSon(new String("right son of root"));
+
+        try {
+            displaySuccessIfTrue(testNodeRoot.getLeftSon().equals(level1Left));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(testNodeRoot.getRightSon().getData().equals("right son of root"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }        
+        try {
+            displaySuccessIfTrue(level1Left.getParent().equals(testNodeRoot));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }        
+        try {
+            displaySuccessIfTrue(level1Left.getLeftSon() == null);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }        
+        try {
+            displaySuccessIfTrue(level1Left.getRightBrother().getData().equals("right son of root"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }        
+        try {
+            displaySuccessIfTrue(testNodeRoot.getRightSon().getParent().equals(testNodeRoot));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }        
+        try {
+            displaySuccessIfTrue(testNodeRoot.getRightSon().getLeftSon() == null);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+
+        testNodeRoot.getRightSon().setLeftSon(testNodeDangler);
+        Node level1Right = testNodeRoot.getRightSon();
+
+        try {
+            displaySuccessIfTrue(level1Right.getLeftSon().equals(testNodeDangler));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(testNodeDangler.getParent().equals(level1Right));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }  
+    }   
 }
