@@ -1,15 +1,26 @@
 public class BinaryTree implements Iterable {
     private int size;
     private Node root;
+    public Node cursor;
 
     public BinaryTree() {
         this.size = 0;
-        root = null;
+        this.root = null;
+        this.cursor = null;
     }
 
     public BinaryTree(Object obj) {
         this.size = 1;
-        root = new Node(obj, null);
+        this.root = new Node(obj, null);
+        this.putCursorAtRoot();
+    }
+
+    public Object getCursorData() {
+        return this.cursor.getData();
+    }
+
+    public Node getCursorNode() {
+        return this.cursor;
     }
 
     public boolean contains(Object obj) {
@@ -41,6 +52,69 @@ public class BinaryTree implements Iterable {
     }   
 
     public Iterator inOrder() {
+        throw new UnsupportedOperationException();
+    }
+
+    public boolean putCursorAtRoot() {
+        if (root == null) {
+            return false;
+        } else {
+            this.cursor = this.root;
+            return true;
+        }
+    }
+
+    public boolean putCursorAtLeftSon() {
+        Node leftSon = this.cursor.getLeftSon();
+
+        if (leftSon == null) {
+            return false;
+        } else {
+            this.cursor = leftSon;
+            return true;
+        }
+    }
+
+    public boolean putCursorAtRightSon() {
+        Node rightSon = this.cursor.getRightSon();
+
+        if (rightSon == null) {
+            return false;
+        } else {
+            this.cursor = rightSon;
+            return true;
+        }
+    }
+
+    public boolean putCursorAtFather() {
+        Node parent = this.cursor.getParent();
+        if (parent == null) {
+            return false;
+        } else {
+            this.cursor = parent;
+            return true;
+        }
+    }
+
+    public boolean attachLeftSonAtCursor(Object obj) {
+        if (this.cursor.getLeftSon() != null) {
+            return false;
+        } else {
+            this.cursor.setAndCreateLeftSon(obj);
+            return true;
+        }
+    }
+
+    public boolean attachRightSonAtCursor(Object obj) {
+        if (this.cursor.getRightSon() != null) {
+            return false;
+        } else {
+            this.cursor.setAndCreateRightSon(obj);
+            return true;
+        }
+    }
+
+    public boolean pruneFromCursor() {
         throw new UnsupportedOperationException();
     }
 

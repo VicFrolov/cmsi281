@@ -7,7 +7,8 @@ public class BinaryTreeTestHarness {
         attempts = 0;
         successes = 0;
 
-        test_NodeConstructor();
+        test_Constructor();
+        test_Cursors();
         test_Nodes();
 
 
@@ -21,8 +22,8 @@ public class BinaryTreeTestHarness {
         System.out.println(value ? "success" : "failure");
     }
 
-    private static void test_NodeConstructor() {
-        System.out.println("Testing Node Constructor...");
+    private static void test_Constructor() {
+        System.out.println("Testing Constructors...");
         Node n = new Node(new Long(10), null);
         BinaryTree bt = new BinaryTree();
         BinaryTree bt2 = new BinaryTree(new Node(new String("root"), null));
@@ -54,15 +55,95 @@ public class BinaryTreeTestHarness {
             displaySuccessIfTrue(false);
         }
         try {
-            displaySuccessIfTrue(bt2.contains("root") == true);
+            displaySuccessIfTrue(bt2.contains("root"));
         } catch(Exception e) {
             displaySuccessIfTrue(false);
         }
         try {
-            displaySuccessIfTrue(bt2.contains("roote") == false);
+            displaySuccessIfTrue(bt2.contains("roote"));
         } catch(Exception e) {
             displaySuccessIfTrue(false);
         }                                                    
+    }
+
+    private static void test_Cursors() {
+        System.out.println("Testing cursors");
+
+        BinaryTree btFail = new BinaryTree();
+        BinaryTree bt = new BinaryTree(new String("root"));
+        bt.attachLeftSonAtCursor(new String("left son of root"));
+        bt.attachRightSonAtCursor(new String("right son of root"));
+
+        try {
+            displaySuccessIfTrue(!btFail.putCursorAtRoot());
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(bt.putCursorAtRoot());
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(bt.getCursorData().equals("root"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }        
+
+        try {
+            displaySuccessIfTrue(bt.putCursorAtLeftSon());
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(bt.getCursorData().equals("left son of root"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(bt.getCursorNode().getRightBrother().getData().equals("right son of root"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }                            
+
+        try {
+            displaySuccessIfTrue(!bt.putCursorAtRightSon());
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+
+        try {
+            displaySuccessIfTrue(bt.putCursorAtFather());
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+
+        try {
+            displaySuccessIfTrue(bt.getCursorData().equals("root"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(bt.putCursorAtRightSon());
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+
+        try {
+            displaySuccessIfTrue(bt.getCursorData().equals("right son of root"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(bt.putCursorAtFather());
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(!bt.attachLeftSonAtCursor(new Long(10)));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
     }
 
     private static void test_Nodes() {
