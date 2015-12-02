@@ -45,7 +45,7 @@ public class BinaryTree implements Iterable {
 	}
 
 	public static void main(String[] args) {
-
+		BinaryTreeTestHarness.main(new String[]{"begin testing"});
 	}
 }
 
@@ -77,23 +77,34 @@ class Node {
 		this.parent = parent;		
 		this.leftSon = null;
 		this.rightSon = null;
-		this.rightBrother = null;
+		this.rightBrother = parent != null ? parent.getRightSon() : null;
+
 	}
+
+
+	public void setAndCreateLeftSon(Object o) {
+		Node n = new Node(o, this);
+		setLeftSon(n);
+	}
+	public void setAndCreateRightSon(Object o) {
+		Node n = new Node(o, this);
+		setRightSon(n);
+	}	
 
 	public void setLeftSon(Node n) {
 		this.leftSon = n;
-	}
+	}	
 
 	public void setRightSon(Node n) {
 		this.rightSon = n;
+
+		if (this.getLeftSon() != null) {
+			this.getLeftSon().setRightBrother(this.rightSon);
+		}
 	}
 	
 	public void setRightBrother(Node n) {
 		this.rightBrother = n;
-	}
-
-	public void setParent(Node n) {
-		this.parent = n;
 	}
 
 	public Node getLeftSon() {
@@ -110,6 +121,14 @@ class Node {
 
 	public Node getParent() {
 		return this.parent;
+	}
+
+	public Object getData() {
+		return this.data;
 	}	
+
+	public void setData(Object o) {
+		this.data = o;
+	}
 }
 
