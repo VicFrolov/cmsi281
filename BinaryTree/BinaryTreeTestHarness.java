@@ -594,7 +594,7 @@ public class BinaryTreeTestHarness {
         b.attachRightSonAtCursor(new String("e"));
         b.putCursorAtRightSon();
         b.attachLeftSonAtCursor(new String("f"));
-        b.attachRightSonAtCursor("g");
+        b.attachRightSonAtCursor(new String("g"));
         b.putCursorAtRightSon();
         b.attachRightSonAtCursor(new String("h"));
 
@@ -608,7 +608,7 @@ public class BinaryTreeTestHarness {
         b2.attachRightSonAtCursor(new String("e"));
         b2.putCursorAtRightSon();
         b2.attachLeftSonAtCursor(new String("f"));
-        b2.attachRightSonAtCursor("g");
+        b2.attachRightSonAtCursor(new String("g"));
         b2.putCursorAtRightSon();
         b2.attachRightSonAtCursor(new String("H"));
 
@@ -678,5 +678,39 @@ public class BinaryTreeTestHarness {
         } catch (Exception e) {
             displaySuccessIfTrue(false);
         }
+
+
+        BinaryTree z = new BinaryTree(new String("a"));
+        z.attachLeftSonAtCursor(new String("b"));
+        z.putCursorAtLeftSon();
+        z.attachLeftSonAtCursor(new String("c"));
+        z.putCursorAtLeftSon();
+        z.attachRightSonAtCursor(new String("d"));
+        z.attachLeftSonAtCursor(new String("z"));
+        z.putCursorAtRoot();
+        z.attachRightSonAtCursor(new String("e"));
+        z.putCursorAtRightSon();
+        z.attachLeftSonAtCursor(new String("f"));
+        z.attachRightSonAtCursor(new String("g"));
+        z.putCursorAtRightSon();
+        z.attachRightSonAtCursor(new String("h"));
+        z.putCursorAtRightSon();
+        z.attachLeftSonAtCursor(new String("i"));
+        z.putCursorAtLeftSon();
+        z.attachLeftSonAtCursor(new String("j"));
+        z.putCursorAtLeftSon();  
+        z.attachLeftSonAtCursor(new String("u"));
+        z.putCursorAtLeftSon();
+        z.attachRightSonAtCursor(new String("v"));
+
+
+        System.out.println(z.size());
+        Iterator i = z.inOrder();
+        int j = 0;
+        while(i.hasNext() && j < 13) {
+            System.out.println(i.next());
+            j++;
+        }
+
     }      
 }
