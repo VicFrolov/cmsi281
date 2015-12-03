@@ -11,6 +11,7 @@ public class BinaryTreeTestHarness {
         test_Cursors();
         test_Nodes();
         test_PreOrderIterator();
+        test_contains();
 
 
         System.out.println(successes + "/" + attempts + " tests passed.");
@@ -68,7 +69,7 @@ public class BinaryTreeTestHarness {
     }
 
     private static void test_Cursors() {
-        System.out.println("Testing cursors");
+        System.out.println("Testing cursors...");
 
         BinaryTree btFail = new BinaryTree();
         BinaryTree bt = new BinaryTree(new String("root"));
@@ -180,7 +181,7 @@ public class BinaryTreeTestHarness {
             displaySuccessIfTrue(false);
         }
 
-		Node n3 = new Node(new Long(0), n);
+        Node n3 = new Node(new Long(0), n);
         n.setLeftSon(n3);
 
         try {
@@ -189,11 +190,11 @@ public class BinaryTreeTestHarness {
             displaySuccessIfTrue(false);
         }
 
-		n3.setAndCreateRightSon(new String("right son of n3"));
-		n3.setAndCreateLeftSon(new String("left son of n3"));
+        n3.setAndCreateRightSon(new String("right son of n3"));
+        n3.setAndCreateLeftSon(new String("left son of n3"));
 
-		Node n4 = n3.getLeftSon();
-		Node n5 = n3.getRightSon();
+        Node n4 = n3.getLeftSon();
+        Node n5 = n3.getRightSon();
 
         try {
             displaySuccessIfTrue(n5.getData().equals(new String("right son of n3")));
@@ -230,7 +231,7 @@ public class BinaryTreeTestHarness {
         } catch(Exception e) {
             displaySuccessIfTrue(false);
         }
-        System.out.println("Secondary pointer Node Tests");
+        System.out.println("Secondary pointer Node Tests...");
 
         Node testNodeRoot = new Node(new String("root"), null);
         Node testNodeDangler = new Node(new String("I dangle"), null);
@@ -292,7 +293,7 @@ public class BinaryTreeTestHarness {
     }
 
     private static void test_PreOrderIterator() {
-        System.out.println("testing PreOrderiterator");
+        System.out.println("testing PreOrderiterator...");
 
         BinaryTree b = new BinaryTree(new String("a"));
         b.attachLeftSonAtCursor(new String("b"));
@@ -310,7 +311,7 @@ public class BinaryTreeTestHarness {
         String output = "";
 
         for (Object o : b) {
-            output += ((Node) o).getData();
+            output += o;
         }
 
         try {
@@ -340,7 +341,7 @@ public class BinaryTreeTestHarness {
 
         String b2output = "";
         for(Object o : b2) {
-            b2output += ((Node) o).getData();
+            b2output += o;
         }
 
         try {
@@ -349,5 +350,52 @@ public class BinaryTreeTestHarness {
             displaySuccessIfTrue(false);
         }
 
+        BinaryTree b3 = new BinaryTree();
+
+        try {
+            for(Object o : b3) {
+                System.out.println(o);
+
+            }
+        } catch(Exception e) {
+            throw new NullPointerException("error for empty trees on iteration");
+        }
+
+        // PreOrderiterator i = b2.iterator();
     } 
+    private static void test_contains() {
+        System.out.println("Testing contains...");
+
+        BinaryTree b = new BinaryTree();
+        BinaryTree b2 = new BinaryTree(new Integer(1));
+        b2.attachLeftSonAtCursor(new Integer(2));
+        b2.putCursorAtLeftSon();
+        b2.attachLeftSonAtCursor(new Integer(3));
+        b2.putCursorAtLeftSon();
+        b2.attachLeftSonAtCursor(new Integer(4));
+        b2.putCursorAtLeftSon();
+        b2.attachLeftSonAtCursor(new Integer(5));
+        b2.attachRightSonAtCursor(new Integer(6));
+        b2.putCursorAtRoot();
+        b2.attachRightSonAtCursor(new Integer(7));
+        b2.putCursorAtRightSon();
+        b2.attachRightSonAtCursor(new Integer(8));
+        b2.putCursorAtRightSon();
+        b2.attachLeftSonAtCursor(new Integer(9));
+        b2.attachRightSonAtCursor(new Integer(10));
+        b2.putCursorAtRightSon();
+        b2.attachRightSonAtCursor(new Integer(11));
+
+        try {
+            displaySuccessIfTrue(b2.contains(new Integer(11)));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(!b2.contains(new Integer(12)));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }        
+
+    }
 }

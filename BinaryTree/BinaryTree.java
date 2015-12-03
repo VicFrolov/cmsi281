@@ -20,15 +20,28 @@ public class BinaryTree implements Iterable {
     }
 
     public Object getCursorData() {
-        return this.cursor.getData();
+        if(!this.isEmpty()) {
+            return this.cursor.getData();
+        } else {
+            return null;
+        }
     }
 
     public Node getCursorNode() {
-        return this.cursor;
+        if(!this.isEmpty()) {
+            return this.cursor;
+        } else {
+            return null;
+        }
     }
 
     public boolean contains(Object obj) {
-        throw new UnsupportedOperationException();
+        for(Object o : this) {
+            if (obj.equals(o)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean similar(Object obj) {
@@ -48,11 +61,11 @@ public class BinaryTree implements Iterable {
     }
 
     public int hashCode() {
-        return -1;
+        throw new UnsupportedOperationException();
     }
 
     public boolean putCursorAtRoot() {
-        if (root == null) {
+        if (this.isEmpty()) {
             return false;
         } else {
             this.cursor = this.root;
@@ -61,6 +74,10 @@ public class BinaryTree implements Iterable {
     }
 
     public boolean putCursorAtLeftSon() {
+        if (this.isEmpty()) {
+            return false;
+        }
+
         Node leftSon = this.cursor.getLeftSon();
 
         if (leftSon == null) {
@@ -72,6 +89,9 @@ public class BinaryTree implements Iterable {
     }
 
     public boolean putCursorAtRightSon() {
+        if (this.isEmpty()) {
+            return false;
+        }
         Node rightSon = this.cursor.getRightSon();
 
         if (rightSon == null) {
@@ -83,6 +103,9 @@ public class BinaryTree implements Iterable {
     }
 
     public boolean putCursorAtFather() {
+        if (this.isEmpty()) {
+            return false;
+        }
         Node parent = this.cursor.getParent();
         if (parent == null) {
             return false;
@@ -93,7 +116,9 @@ public class BinaryTree implements Iterable {
     }
 
     public boolean attachLeftSonAtCursor(Object obj) {
-        if (this.cursor.getLeftSon() != null) {
+        if (this.isEmpty()) {
+            return false;
+        } else if (this.cursor.getLeftSon() != null) {
             return false;
         } else {
             this.cursor.setAndCreateLeftSon(obj);
@@ -103,7 +128,9 @@ public class BinaryTree implements Iterable {
     }
 
     public boolean attachRightSonAtCursor(Object obj) {
-        if (this.cursor.getRightSon() != null) {
+        if (this.isEmpty()) {
+            return false;
+        } else if (this.cursor.getRightSon() != null) {
             return false;
         } else {
             this.cursor.setAndCreateRightSon(obj);
@@ -126,23 +153,25 @@ public class BinaryTree implements Iterable {
         throw new UnsupportedOperationException();
     }
 
-    private class PreOrderIterator implements java.util.Iterator {
+    private class PreOrderIterator implements Iterator {
         private Stack<Node> stack;
 
         public PreOrderIterator(BinaryTree b) {
             this.stack = new Stack<Node>();
-            b.putCursorAtRoot();
-            this.stack.add(b.getCursorNode());
+            if(!b.isEmpty()) {
+                b.putCursorAtRoot();
+                this.stack.add(b.getCursorNode());
+            }
         }
 
-        public Node next() {
+        public Object next() {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
             Node poppedNode = this.stack.pop();
 
             if (poppedNode.getLeftSon() != null) {
-                if(poppedNode.getRightSon() != null) {
+                if (poppedNode.getRightSon() != null) {
                     this.stack.add(poppedNode);
                 }
                 this.stack.add(poppedNode.getLeftSon());
@@ -156,7 +185,7 @@ public class BinaryTree implements Iterable {
                     }   
                 }
             }
-            return poppedNode;
+            return poppedNode.getData();
         }
 
         public boolean hasNext() {
@@ -262,4 +291,3 @@ class Node {
         }
     }
 }
-
