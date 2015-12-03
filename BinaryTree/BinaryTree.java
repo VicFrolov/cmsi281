@@ -197,6 +197,8 @@ public class BinaryTree implements Iterable {
         }                
     } 
 
+    
+
     public static void main(String[] args) {
         BinaryTreeTestHarness.main(new String[]{"begin testing"});
     }   

@@ -28,7 +28,8 @@ public class BinaryTreeTestHarness {
         System.out.println("Testing Constructors...");
         Node n = new Node(new Long(10), null);
         BinaryTree bt = new BinaryTree();
-        BinaryTree bt2 = new BinaryTree(new Node(new String("root"), null));
+        BinaryTree bt2 = new BinaryTree(new String("root"));
+        System.out.println(bt2.getCursorData());
 
         try {
             displaySuccessIfTrue(n.getParent() == null);
@@ -57,12 +58,12 @@ public class BinaryTreeTestHarness {
             displaySuccessIfTrue(false);
         }
         try {
-            displaySuccessIfTrue(bt2.contains("root"));
+            displaySuccessIfTrue(bt2.contains(new String("root")));
         } catch(Exception e) {
             displaySuccessIfTrue(false);
         }
         try {
-            displaySuccessIfTrue(bt2.contains("roote"));
+            displaySuccessIfTrue(bt2.contains("root"));
         } catch(Exception e) {
             displaySuccessIfTrue(false);
         }                                                    
@@ -392,10 +393,20 @@ public class BinaryTreeTestHarness {
             displaySuccessIfTrue(false);
         }
         try {
-            displaySuccessIfTrue(!b2.contains(new Integer(12)));
+            displaySuccessIfTrue(!b2.contains(100));
         } catch(Exception e) {
             displaySuccessIfTrue(false);
-        }        
+        }
+        try {
+            displaySuccessIfTrue(!b2.contains("1"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(b2.size() == 11);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }                          
 
     }
 }
