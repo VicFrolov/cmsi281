@@ -1,7 +1,11 @@
+import java.util.Stack;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 public class BinaryTree implements Iterable {
     private int size;
     private Node root;
-    public Node cursor;
+    private Node cursor;
 
     public BinaryTree() {
         this.size = 0;
@@ -24,15 +28,15 @@ public class BinaryTree implements Iterable {
     }
 
     public boolean contains(Object obj) {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     public boolean similar(Object obj) {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     public boolean equals(Object obj) {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     public boolean isEmpty() {
@@ -45,14 +49,6 @@ public class BinaryTree implements Iterable {
 
     public int hashCode() {
         return -1;
-    }
-    
-    public Iterator iterator()  {
-        throw new UnsupportedOperationException();
-    }   
-
-    public Iterator inOrder() {
-        throw new UnsupportedOperationException();
     }
 
     public boolean putCursorAtRoot() {
@@ -101,6 +97,7 @@ public class BinaryTree implements Iterable {
             return false;
         } else {
             this.cursor.setAndCreateLeftSon(obj);
+            this.size++;
             return true;
         }
     }
@@ -110,6 +107,7 @@ public class BinaryTree implements Iterable {
             return false;
         } else {
             this.cursor.setAndCreateRightSon(obj);
+            this.size++;
             return true;
         }
     }
@@ -118,26 +116,64 @@ public class BinaryTree implements Iterable {
         throw new UnsupportedOperationException();
     }
 
+
+
+    public Iterator iterator()  {
+        return new PreOrderIterator(this);
+    }   
+
+    public Iterator inOrder() {
+        throw new UnsupportedOperationException();
+    }
+
+    private class PreOrderIterator implements java.util.Iterator {
+        private Stack<Node> stack;
+
+        public PreOrderIterator(BinaryTree b) {
+            this.stack = new Stack<Node>();
+            b.putCursorAtRoot();
+            this.stack.add(b.getCursorNode());
+        }
+
+        public Node next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            Node poppedNode = this.stack.pop();
+
+            if (poppedNode.getLeftSon() != null) {
+                if(poppedNode.getRightSon() != null) {
+                    this.stack.add(poppedNode);
+                }
+                this.stack.add(poppedNode.getLeftSon());
+            } else if (poppedNode.getRightSon() != null) {
+                this.stack.add(poppedNode.getRightSon());
+            } else  {
+                if (stack.size() != 0) {
+                    Node parent = this.stack.pop();
+                    if (parent.getRightSon() != null) {
+                        this.stack.add(parent.getRightSon());
+                    }   
+                }
+            }
+            return poppedNode;
+        }
+
+        public boolean hasNext() {
+            return this.stack.empty() ? false : true;
+        }
+        
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }                
+    } 
+
     public static void main(String[] args) {
         BinaryTreeTestHarness.main(new String[]{"begin testing"});
-    }
+    }   
+
 }
 
-class Iterator implements java.util.Iterator {
-    public void remove() {
-        throw new UnsupportedOperationException();
-    }
-
-    public Node next() {
-        throw new UnsupportedOperationException();
-
-    }
-
-    public boolean hasNext() {
-        throw new UnsupportedOperationException();
-
-    }
-}
 
 class Node {
     private Object data;
@@ -216,6 +252,14 @@ class Node {
 
     public void setData(Object o) {
         this.data = o;
+    }
+
+    public boolean hasChildren() {
+        if (this.leftSon == null && this.rightSon == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
 

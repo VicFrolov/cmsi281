@@ -10,6 +10,7 @@ public class BinaryTreeTestHarness {
         test_Constructor();
         test_Cursors();
         test_Nodes();
+        test_PreOrderIterator();
 
 
         System.out.println(successes + "/" + attempts + " tests passed.");
@@ -288,5 +289,65 @@ public class BinaryTreeTestHarness {
         } catch(Exception e) {
             displaySuccessIfTrue(false);
         }  
-    }   
+    }
+
+    private static void test_PreOrderIterator() {
+        System.out.println("testing PreOrderiterator");
+
+        BinaryTree b = new BinaryTree(new String("a"));
+        b.attachLeftSonAtCursor(new String("b"));
+        b.putCursorAtLeftSon();
+        b.attachLeftSonAtCursor(new String("c"));
+        b.putCursorAtLeftSon();
+        b.attachRightSonAtCursor(new String("d"));
+        b.putCursorAtRoot();
+        b.attachRightSonAtCursor(new String("e"));
+        b.putCursorAtRightSon();
+        b.attachLeftSonAtCursor(new String("f"));
+        b.attachRightSonAtCursor("g");
+        b.putCursorAtRightSon();
+        b.attachRightSonAtCursor(new String("h"));
+        String output = "";
+
+        for (Object o : b) {
+            output += ((Node) o).getData();
+        }
+
+        try {
+            displaySuccessIfTrue(output.equals("abcdefgh"));
+        } catch (Exception e) {
+            displaySuccessIfTrue(false);
+        }
+
+        BinaryTree b2 = new BinaryTree(new Integer(1));
+        b2.attachLeftSonAtCursor(new Integer(2));
+        b2.putCursorAtLeftSon();
+        b2.attachLeftSonAtCursor(new Integer(3));
+        b2.putCursorAtLeftSon();
+        b2.attachLeftSonAtCursor(new Integer(4));
+        b2.putCursorAtLeftSon();
+        b2.attachLeftSonAtCursor(new Integer(5));
+        b2.attachRightSonAtCursor(new Integer(6));
+        b2.putCursorAtRoot();
+        b2.attachRightSonAtCursor(new Integer(7));
+        b2.putCursorAtRightSon();
+        b2.attachRightSonAtCursor(new Integer(8));
+        b2.putCursorAtRightSon();
+        b2.attachLeftSonAtCursor(new Integer(9));
+        b2.attachRightSonAtCursor(new Integer(10));
+        b2.putCursorAtRightSon();
+        b2.attachRightSonAtCursor(new Integer(11));
+
+        String b2output = "";
+        for(Object o : b2) {
+            b2output += ((Node) o).getData();
+        }
+
+        try {
+            displaySuccessIfTrue(b2output.equals("1234567891011"));
+        } catch (Exception e) {
+            displaySuccessIfTrue(false);
+        }
+
+    } 
 }
