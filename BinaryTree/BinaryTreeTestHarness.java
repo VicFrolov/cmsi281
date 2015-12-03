@@ -728,6 +728,12 @@ public class BinaryTreeTestHarness {
             massive2.attachLeftSonAtCursor(new Integer(i));
             massive2.putCursorAtLeftSon();
         }
+        BinaryTree massive3 = new BinaryTree(new Integer(1));
+        for (int i = 2; i < 99; i++) {
+            massive3.attachLeftSonAtCursor(new Integer(i));
+            massive3.putCursorAtLeftSon();
+        }
+        massive3.attachLeftSonAtCursor(new Integer(2));     
 
         BinaryTree empty1 = new BinaryTree();
         BinaryTree empty2 = new BinaryTree();
@@ -741,7 +747,11 @@ public class BinaryTreeTestHarness {
         } catch(Exception e) {
             displaySuccessIfTrue(false);
         }   
-
+        try {
+            displaySuccessIfTrue(massive1.hashCode() != massive3.hashCode());
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
 
     }      
 }
