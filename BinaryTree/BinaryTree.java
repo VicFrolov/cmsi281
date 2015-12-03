@@ -141,11 +141,12 @@ public class BinaryTree implements Iterable {
 
 
     public int hashCode() {
-        int hashCode = 17;
-        this.putCursorAtRoot();
+        int hash = 5381;
+        for (Object n : this) {
+            hash = 33 * hash + n.hashCode();
+        }
 
-        System.out.println(this.getCursorNode());
-        return hashCode;
+        return hash;
     }
 
 
@@ -312,23 +313,25 @@ public class BinaryTree implements Iterable {
 
             if (nodeToBeSkipped == currentNode) {
                 lastNodeIterated = currentNode;
+
                 return currentNode.getData();
             }
-
-            //check if any nodes left to the left side of current Node
 
             while (currentNode.getLeftSon() != null && currentNode.getLeftSon() != lastNodeIterated 
                 && currentNode.getLeftSon() != nodeToBeSkipped) {
                 stack.add(currentNode);
                 currentNode = currentNode.getLeftSon();
+
             }
 
             if (currentNode.getRightSon() != null) {
                 stack.add(currentNode.getRightSon());
+
             }
 
             if (lastNodeIterated == currentNode.getLeftSon()) {
                 nodeToBeSkipped = currentNode;
+
             }
 
             lastNodeIterated = currentNode;
@@ -338,7 +341,7 @@ public class BinaryTree implements Iterable {
 
 
         public boolean hasNext() {
-            return this.stack.empty() ? false : true;
+            return !this.stack.empty();
         }
         
 

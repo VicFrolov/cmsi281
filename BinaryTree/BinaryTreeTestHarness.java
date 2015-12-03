@@ -17,6 +17,7 @@ public class BinaryTreeTestHarness {
         test_prune();
         test_similar();
         test_equals();
+        test_hashing();
 
 
         System.out.println(successes + "/" + attempts + " tests passed.");
@@ -711,6 +712,36 @@ public class BinaryTreeTestHarness {
             System.out.println(i.next());
             j++;
         }
+
+    }
+
+    private static void test_hashing() {
+        System.out.println("testing hashCode...");
+
+        BinaryTree massive1 = new BinaryTree(new Integer(1));
+        for (int i = 2; i < 100; i++) {
+            massive1.attachLeftSonAtCursor(new Integer(i));
+            massive1.putCursorAtLeftSon();
+        }
+        BinaryTree massive2 = new BinaryTree(new Integer(1));
+        for (int i = 2; i < 100; i++) {
+            massive2.attachLeftSonAtCursor(new Integer(i));
+            massive2.putCursorAtLeftSon();
+        }
+
+        BinaryTree empty1 = new BinaryTree();
+        BinaryTree empty2 = new BinaryTree();
+
+        try {
+            displaySuccessIfTrue(empty1.hashCode() == empty2.hashCode());
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        } try {
+            displaySuccessIfTrue(massive1.hashCode() == massive2.hashCode());
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }   
+
 
     }      
 }
