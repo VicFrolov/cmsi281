@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 public class BinaryTreeTestHarness {
 
     private static int attempts = 0;
@@ -12,6 +14,7 @@ public class BinaryTreeTestHarness {
         test_Nodes();
         test_PreOrderIterator();
         test_contains();
+        test_prune();
 
 
         System.out.println(successes + "/" + attempts + " tests passed.");
@@ -29,7 +32,6 @@ public class BinaryTreeTestHarness {
         Node n = new Node(new Long(10), null);
         BinaryTree bt = new BinaryTree();
         BinaryTree bt2 = new BinaryTree(new String("root"));
-        System.out.println(bt2.getCursorData());
 
         try {
             displaySuccessIfTrue(n.getParent() == null);
@@ -356,13 +358,11 @@ public class BinaryTreeTestHarness {
         try {
             for(Object o : b3) {
                 System.out.println(o);
-
             }
         } catch(Exception e) {
             throw new NullPointerException("error for empty trees on iteration");
         }
 
-        // PreOrderiterator i = b2.iterator();
     } 
     private static void test_contains() {
         System.out.println("Testing contains...");
@@ -406,7 +406,67 @@ public class BinaryTreeTestHarness {
             displaySuccessIfTrue(b2.size() == 11);
         } catch(Exception e) {
             displaySuccessIfTrue(false);
-        }                          
-
+        }
     }
+    private static void test_prune() {
+        System.out.println("Testing pruneFromCursor...");
+
+        BinaryTree b = new BinaryTree();
+
+        BinaryTree b2 = new BinaryTree(new Integer(1));
+        b2.attachLeftSonAtCursor(new Integer(2));
+        b2.putCursorAtLeftSon();
+        b2.attachLeftSonAtCursor(new Integer(3));
+        b2.putCursorAtLeftSon();
+        b2.attachLeftSonAtCursor(new Integer(4));
+        b2.putCursorAtLeftSon();
+        b2.attachLeftSonAtCursor(new Integer(5));
+        b2.attachRightSonAtCursor(new Integer(6));
+        b2.putCursorAtRoot();
+        b2.attachRightSonAtCursor(new Integer(7));
+        b2.putCursorAtRightSon();
+        b2.attachRightSonAtCursor(new Integer(8));
+        b2.putCursorAtRightSon();
+        b2.attachLeftSonAtCursor(new Integer(9));
+        b2.attachRightSonAtCursor(new Integer(10));
+        b2.putCursorAtRightSon();
+        b2.attachRightSonAtCursor(new Integer(11));
+
+        b2.putCursorAtRoot();
+        b2.putCursorAtLeftSon();
+        b2.pruneFromCursor();
+
+        BinaryTree b3 = new BinaryTree(new Integer(1));
+        b3.attachLeftSonAtCursor(new Integer(2));
+        b3.putCursorAtLeftSon();
+        b3.attachLeftSonAtCursor(new Integer(3));
+        b3.putCursorAtLeftSon();
+        b3.attachRightSonAtCursor(new Integer(4));
+        b3.putCursorAtRightSon();
+
+        b3.pruneFromCursor();
+
+
+        try {
+            displaySuccessIfTrue(!b2.contains(new Integer(11)));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(!b2.contains(100));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(!b2.contains("1"));
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(b2.size() == 6);
+        } catch(Exception e) {
+            displaySuccessIfTrue(false);
+        }
+
+    }    
 }

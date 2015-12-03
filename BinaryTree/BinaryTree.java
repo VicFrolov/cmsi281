@@ -140,7 +140,45 @@ public class BinaryTree implements Iterable {
     }
 
     public boolean pruneFromCursor() {
-        throw new UnsupportedOperationException();
+        if (this.isEmpty()) {
+            return false;
+        }
+
+        Node nodeToPrune = this.getCursorNode();
+        Node parentOfPrune = nodeToPrune.getParent();
+        int newSize = 0;
+
+
+        if (nodeToPrune.equals(this.root)) {
+            if (nodeToPrune.getLeftSon() != null) {
+                nodeToPrune.getLeftSon().setParent(null);                
+                nodeToPrune.setLeftSon(null);
+            }
+
+            if (nodeToPrune.getRightSon() != null) {
+                nodeToPrune.getRightSon().setParent(null);
+                nodeToPrune.setRightSon(null);
+            }
+            this.size = 0;
+            return true;
+        }
+
+        if (parentOfPrune.getLeftSon() != null && parentOfPrune.getLeftSon().equals(nodeToPrune)) {
+            parentOfPrune.setLeftSon(null);
+        } else {
+            parentOfPrune.setRightSon(null);
+        }
+
+        nodeToPrune.setParent(null);
+        this.putCursorAtRoot();
+        for (Object o : this) {
+            newSize++;
+        }
+
+        this.size = newSize;
+
+        return true;
+
     }
 
 
@@ -150,7 +188,28 @@ public class BinaryTree implements Iterable {
     }   
 
     public Iterator inOrder() {
-        throw new UnsupportedOperationException();
+        return new InOrderIterator(this);
+    }
+
+    private class InOrderIterator implements Iterator {
+        private Stack<Node> stack;
+
+        public InOrderIterator(BinaryTree b) {
+            this.stack = new Stack<Node>();
+            stack.add(b.getCursorNode());
+        }
+
+        public Object next() {
+            throw new UnsupportedOperationException();
+        }
+
+        public boolean hasNext() {
+            return this.stack.empty() ? false : true;
+        }
+        
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }  
     }
 
     private class PreOrderIterator implements Iterator {
@@ -197,9 +256,10 @@ public class BinaryTree implements Iterable {
         }                
     } 
 
-    
+
 
     public static void main(String[] args) {
+
         BinaryTreeTestHarness.main(new String[]{"begin testing"});
     }   
 
@@ -233,10 +293,11 @@ class Node {
 
     public void setLeftSon(Node n) {
         this.leftSon = n;
-        if (n.getParent() == null) {
+
+        if (n != null && n.getParent() == null) {
             n.setParent(this);
         }
-        if (this.rightSon != null) {
+        if (n != null && this.rightSon != null) {
             this.leftSon.setRightBrother(this.rightSon);
         }
     }   
@@ -244,16 +305,16 @@ class Node {
     public void setRightSon(Node n) {
         this.rightSon = n;
 
-        if (n.getParent() == null) {
+        if (n != null && n.getParent() == null) {
             n.setParent(this);
         }
 
-        if (this.leftSon != null) {
+        if (n != null && this.leftSon != null) {
             this.leftSon.setRightBrother(this.rightSon);
         }
     }
 
-    private void setParent(Node n) {
+    public void setParent(Node n) {
         this.parent = n;
     }   
     
