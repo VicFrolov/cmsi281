@@ -45,7 +45,47 @@ public class BinaryTree implements Iterable {
     }
 
     public boolean similar(Object obj) {
-        throw new UnsupportedOperationException();
+        if (!(obj instanceof BinaryTree)) {
+            return false;
+        }
+
+        BinaryTree tree2 = (BinaryTree) obj;
+
+        if (this.isEmpty() && tree2.isEmpty()) {
+            return true;
+        } else if (this.size() != tree2.size()) {
+            return false;
+        }
+
+        this.putCursorAtRoot();
+        tree2.putCursorAtRoot();
+        Node tree1Node = this.getCursorNode();
+        Node tree2Node = tree2.getCursorNode();
+
+        return treeComparison(tree1Node, tree2Node);
+    }
+
+    private boolean treeComparison(Node n1, Node n2) {
+
+        boolean differentSons = (n1.getLeftSon() != null && n2.getLeftSon() == null) 
+            || (n1.getLeftSon() == null && n2.getLeftSon() != null) 
+            || (n1.getRightSon() == null && n2.getRightSon() != null) 
+            || (n1.getRightSon() != null && n2.getRightSon() == null);
+        
+        if (differentSons)  {
+            return false;
+        }
+
+        if (n1.getRightSon() != null) {
+            return treeComparison(n1.getRightSon(), n2.getRightSon());
+        }
+        
+        if (n1.getLeftSon() != null) {
+            return treeComparison(n1.getLeftSon(), n2.getLeftSon());
+        }
+
+
+        return true;
     }
 
     public boolean equals(Object obj) {
@@ -178,7 +218,6 @@ public class BinaryTree implements Iterable {
         this.size = newSize;
 
         return true;
-
     }
 
 
