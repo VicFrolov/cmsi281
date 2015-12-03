@@ -16,6 +16,7 @@ public class BinaryTreeTestHarness {
         test_contains();
         test_prune();
         test_similar();
+        test_equals();
 
 
         System.out.println(successes + "/" + attempts + " tests passed.");
@@ -578,5 +579,104 @@ public class BinaryTreeTestHarness {
         } catch (Exception e) {
             displaySuccessIfTrue(false);
         }        
-    }       
+    }
+
+    private static void test_equals() {
+        System.out.println("Testing equals...");
+
+        BinaryTree b = new BinaryTree(new String("a"));
+        b.attachLeftSonAtCursor(new String("b"));
+        b.putCursorAtLeftSon();
+        b.attachLeftSonAtCursor(new String("c"));
+        b.putCursorAtLeftSon();
+        b.attachRightSonAtCursor(new String("d"));
+        b.putCursorAtRoot();
+        b.attachRightSonAtCursor(new String("e"));
+        b.putCursorAtRightSon();
+        b.attachLeftSonAtCursor(new String("f"));
+        b.attachRightSonAtCursor("g");
+        b.putCursorAtRightSon();
+        b.attachRightSonAtCursor(new String("h"));
+
+        BinaryTree b2 = new BinaryTree(new String("a"));
+        b2.attachLeftSonAtCursor(new String("b"));
+        b2.putCursorAtLeftSon();
+        b2.attachLeftSonAtCursor(new String("c"));
+        b2.putCursorAtLeftSon();
+        b2.attachRightSonAtCursor(new String("d"));
+        b2.putCursorAtRoot();
+        b2.attachRightSonAtCursor(new String("e"));
+        b2.putCursorAtRightSon();
+        b2.attachLeftSonAtCursor(new String("f"));
+        b2.attachRightSonAtCursor("g");
+        b2.putCursorAtRightSon();
+        b2.attachRightSonAtCursor(new String("H"));
+
+        BinaryTree b3 = new BinaryTree();
+        BinaryTree b4 = new BinaryTree();
+
+        BinaryTree massive1 = new BinaryTree(new Integer(1));
+        for (int i = 2; i < 100; i++) {
+            massive1.attachLeftSonAtCursor(new Integer(i));
+            massive1.putCursorAtLeftSon();
+        }
+        BinaryTree massive2 = new BinaryTree(new Integer(1));
+        for (int i = 2; i < 100; i++) {
+            massive2.attachLeftSonAtCursor(new Integer(i));
+            massive2.putCursorAtLeftSon();
+        } 
+
+        BinaryTree massive3 = new BinaryTree(new Integer(1));
+        for (int i = 2; i < 100; i++) {
+            massive3.attachLeftSonAtCursor(new Integer(i));
+            massive3.putCursorAtLeftSon();
+        }
+        BinaryTree massive4 = new BinaryTree(new Integer(1));
+        for (int i = 2; i < 99; i++) {
+            massive4.attachLeftSonAtCursor(new Integer(i));
+            massive4.putCursorAtLeftSon();
+        }
+
+        massive4.attachRightSonAtCursor(new Integer(99));
+
+        BinaryTree massive5 = new BinaryTree(new Integer(1));
+        for (int i = 2; i < 100; i++) {
+            massive5.attachLeftSonAtCursor(new Integer(i));
+            massive5.putCursorAtLeftSon();
+        }
+        BinaryTree massive6 = new BinaryTree(new Integer(1));
+        for (int i = 2; i < 99; i++) {
+            massive6.attachLeftSonAtCursor(new Integer(i));
+            massive6.putCursorAtLeftSon();
+        }
+
+        massive6.attachLeftSonAtCursor(new Integer(100));                        
+
+
+        try {
+            displaySuccessIfTrue(!b.equals(b2));
+        } catch (Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(b3.equals(b4));
+        } catch (Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(massive1.equals(massive2));
+        } catch (Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(!massive3.equals(massive4));
+        } catch (Exception e) {
+            displaySuccessIfTrue(false);
+        }
+        try {
+            displaySuccessIfTrue(!massive5.equals(massive6));
+        } catch (Exception e) {
+            displaySuccessIfTrue(false);
+        }
+    }      
 }

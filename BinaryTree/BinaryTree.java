@@ -20,7 +20,7 @@ public class BinaryTree implements Iterable {
     }
 
     public Object getCursorData() {
-        if(!this.isEmpty()) {
+        if (!this.isEmpty()) {
             return this.cursor.getData();
         } else {
             return null;
@@ -28,7 +28,7 @@ public class BinaryTree implements Iterable {
     }
 
     public Node getCursorNode() {
-        if(!this.isEmpty()) {
+        if (!this.isEmpty()) {
             return this.cursor;
         } else {
             return null;
@@ -77,19 +77,47 @@ public class BinaryTree implements Iterable {
         }
 
         if (n1.getRightSon() != null) {
-            return treeComparison(n1.getRightSon(), n2.getRightSon());
+            if (!treeComparison(n1.getRightSon(), n2.getRightSon())) {
+                return false;
+            }
         }
-        
+
         if (n1.getLeftSon() != null) {
-            return treeComparison(n1.getLeftSon(), n2.getLeftSon());
+            if (!treeComparison(n1.getLeftSon(), n2.getLeftSon())) {
+                return false;
+            }
         }
-
-
         return true;
     }
 
     public boolean equals(Object obj) {
-        throw new UnsupportedOperationException();
+        if (!(obj instanceof BinaryTree)) {
+            return false;
+        }
+
+        BinaryTree tree2 = (BinaryTree) obj;
+        
+        if (this.size() != tree2.size()) {
+            return false;
+        } else if (this.isEmpty() && tree2.isEmpty()) {
+            return true;
+        } else if (!this.similar(tree2)) {
+            return false;
+        }
+
+        Iterator tree1Iterator = this.iterator();
+        Iterator tree2Iterator = tree2.iterator();      
+
+        while (tree1Iterator.hasNext()) {
+            Object tree1Object = tree1Iterator.next();
+            Object tree2Object = tree2Iterator.next();
+
+            if (!tree1Object.equals(tree2Object)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public boolean isEmpty() {
@@ -132,6 +160,7 @@ public class BinaryTree implements Iterable {
         if (this.isEmpty()) {
             return false;
         }
+
         Node rightSon = this.cursor.getRightSon();
 
         if (rightSon == null) {
@@ -146,7 +175,9 @@ public class BinaryTree implements Iterable {
         if (this.isEmpty()) {
             return false;
         }
+
         Node parent = this.cursor.getParent();
+        
         if (parent == null) {
             return false;
         } else {
@@ -188,7 +219,6 @@ public class BinaryTree implements Iterable {
         Node parentOfPrune = nodeToPrune.getParent();
         int newSize = 0;
 
-
         if (nodeToPrune.equals(this.root)) {
             if (nodeToPrune.getLeftSon() != null) {
                 nodeToPrune.getLeftSon().setParent(null);                
@@ -211,6 +241,7 @@ public class BinaryTree implements Iterable {
 
         nodeToPrune.setParent(null);
         this.putCursorAtRoot();
+
         for (Object o : this) {
             newSize++;
         }
@@ -256,7 +287,8 @@ public class BinaryTree implements Iterable {
 
         public PreOrderIterator(BinaryTree b) {
             this.stack = new Stack<Node>();
-            if(!b.isEmpty()) {
+            
+            if (!b.isEmpty()) {
                 b.putCursorAtRoot();
                 this.stack.add(b.getCursorNode());
             }
@@ -266,6 +298,7 @@ public class BinaryTree implements Iterable {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
+
             Node poppedNode = this.stack.pop();
 
             if (poppedNode.getLeftSon() != null) {
@@ -277,7 +310,9 @@ public class BinaryTree implements Iterable {
                 this.stack.add(poppedNode.getRightSon());
             } else  {
                 if (stack.size() != 0) {
+
                     Node parent = this.stack.pop();
+
                     if (parent.getRightSon() != null) {
                         this.stack.add(parent.getRightSon());
                     }   
@@ -298,7 +333,6 @@ public class BinaryTree implements Iterable {
 
 
     public static void main(String[] args) {
-
         BinaryTreeTestHarness.main(new String[]{"begin testing"});
     }   
 
