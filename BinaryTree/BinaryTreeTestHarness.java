@@ -18,6 +18,7 @@ public class BinaryTreeTestHarness {
         test_similar();
         test_equals();
         test_hashing();
+        test_inOrder();
 
 
         System.out.println(successes + "/" + attempts + " tests passed.");
@@ -679,40 +680,6 @@ public class BinaryTreeTestHarness {
         } catch (Exception e) {
             displaySuccessIfTrue(false);
         }
-
-
-        BinaryTree z = new BinaryTree(new String("a"));
-        z.attachLeftSonAtCursor(new String("b"));
-        z.putCursorAtLeftSon();
-        z.attachLeftSonAtCursor(new String("c"));
-        z.putCursorAtLeftSon();
-        z.attachRightSonAtCursor(new String("d"));
-        z.attachLeftSonAtCursor(new String("z"));
-        z.putCursorAtRoot();
-        z.attachRightSonAtCursor(new String("e"));
-        z.putCursorAtRightSon();
-        z.attachLeftSonAtCursor(new String("f"));
-        z.attachRightSonAtCursor(new String("g"));
-        z.putCursorAtRightSon();
-        z.attachRightSonAtCursor(new String("h"));
-        z.putCursorAtRightSon();
-        z.attachLeftSonAtCursor(new String("i"));
-        z.putCursorAtLeftSon();
-        z.attachLeftSonAtCursor(new String("j"));
-        z.putCursorAtLeftSon();  
-        z.attachLeftSonAtCursor(new String("u"));
-        z.putCursorAtLeftSon();
-        z.attachRightSonAtCursor(new String("v"));
-
-
-        System.out.println(z.size());
-        Iterator i = z.inOrder();
-        int j = 0;
-        while(i.hasNext() && j < 13) {
-            System.out.println(i.next());
-            j++;
-        }
-
     }
 
     private static void test_hashing() {
@@ -753,5 +720,115 @@ public class BinaryTreeTestHarness {
             displaySuccessIfTrue(false);
         }
 
-    }      
+    }
+
+    private static void test_inOrder() {
+        System.out.println("Testing in order");
+
+        // BinaryTree z = new BinaryTree(new String("a"));
+        // z.attachLeftSonAtCursor(new String("b"));
+        // z.putCursorAtLeftSon();
+        // z.attachLeftSonAtCursor(new String("c"));
+        // z.putCursorAtLeftSon();
+        // z.attachRightSonAtCursor(new String("d"));
+        // z.attachLeftSonAtCursor(new String("z"));
+        // z.putCursorAtRoot();
+        // z.attachRightSonAtCursor(new String("e"));
+        // z.putCursorAtRightSon();
+        // z.attachLeftSonAtCursor(new String("f"));
+        // z.attachRightSonAtCursor(new String("g"));
+        // z.putCursorAtRightSon();
+        // z.attachRightSonAtCursor(new String("h"));
+        // z.putCursorAtRightSon();
+        // z.attachLeftSonAtCursor(new String("i"));
+        // z.putCursorAtLeftSon();
+        // z.attachLeftSonAtCursor(new String("j"));
+        // z.putCursorAtLeftSon();  
+        // z.attachLeftSonAtCursor(new String("u"));
+        // z.putCursorAtLeftSon();
+        // z.attachRightSonAtCursor(new String("v"));
+
+        // Iterator i = z.inOrder();
+        // String s = "";
+        // int j = 0;
+        // while(i.hasNext()) {
+        //     s += i.next();
+        //     j++;
+        // }
+
+        // BinaryTree b = new BinaryTree();
+
+        // Iterator bIter = b.inOrder();
+        // String bIterString = "";
+        // while(bIter.hasNext()) {
+        //     bIterString += bIter.next();
+        // }
+
+        // BinaryTree b2 = new BinaryTree(new String("lol"));
+
+        // Iterator bIter2 = b2.inOrder();
+        // String bIterString2 = "";
+        // int b2reps = 0;
+        // while(bIter2.hasNext()) {
+        //     bIterString2 += bIter2.next();
+        //     b2reps++;
+        // }  
+
+
+        BinaryTree b3 = new BinaryTree(new String("a"));
+        b3.attachRightSonAtCursor(new String("b"));
+        b3.putCursorAtRightSon();
+        b3.attachRightSonAtCursor(new String("c"));
+        b3.putCursorAtRightSon();               
+        b3.attachLeftSonAtCursor(new String("d"));
+        b3.putCursorAtLeftSon();
+        b3.attachRightSonAtCursor(new String("e")); 
+        b3.putCursorAtRoot(); 
+        b3.attachLeftSonAtCursor(new String("z"));
+        b3.putCursorAtLeftSon();
+        b3.attachRightSonAtCursor(new String("x"));
+        b3.putCursorAtRightSon(); 
+        b3.attachRightSonAtCursor(new String("h"));
+        b3.attachLeftSonAtCursor(new String("j"));
+
+
+        Iterator bIter3 = b3.inOrder();
+        String bIterString3 = "";
+        int b3reps = 0;
+
+        while(bIter3.hasNext()) {
+            bIterString3 += bIter3.next();
+            b3reps++;
+        }
+        System.out.println(bIterString3);
+
+
+
+        // try {
+        //     displaySuccessIfTrue(s.equals("zcdbafeguvjih"));
+        // } catch(Exception e) {
+        //     displaySuccessIfTrue(false);
+        // }
+        // try {
+        //     displaySuccessIfTrue(j == z.size());
+        // } catch(Exception e) {
+        //     displaySuccessIfTrue(false);
+        // }
+        // try {
+        //     displaySuccessIfTrue(bIterString.equals(""));
+        // } catch(Exception e) {
+        //     displaySuccessIfTrue(false);
+        // }
+        // try {
+        //     displaySuccessIfTrue(bIterString2.equals("lol"));
+        // } catch(Exception e) {
+        //     displaySuccessIfTrue(false);
+        // }
+        // try {
+        //     displaySuccessIfTrue(b2reps == b2.size());
+        // } catch(Exception e) {
+        //     displaySuccessIfTrue(false);
+        // }                
+
+    }     
 }

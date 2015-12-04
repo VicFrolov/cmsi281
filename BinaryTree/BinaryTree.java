@@ -2,7 +2,6 @@ import java.util.Stack;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-
 public class BinaryTree implements Iterable {
     private int size;
     private Node root;
@@ -136,6 +135,7 @@ public class BinaryTree implements Iterable {
 
 
     public int size() {
+
         return this.size;
     }
 
@@ -151,7 +151,7 @@ public class BinaryTree implements Iterable {
 
 
     public boolean putCursorAtRoot() {
-        if (this.isEmpty()) {
+        if ( this.isEmpty() ) {
             return false;
         } else {
             this.cursor = this.root;
@@ -290,19 +290,39 @@ public class BinaryTree implements Iterable {
     private class InOrderIterator implements Iterator {
         private Stack<Node> stack;
         private Node lastNodeIterated;
-        private Node nodeToBeSkipped;
-
+        private Node parentNodeToSkip;
+        private Node nodeContainingNull;
 
         public InOrderIterator(BinaryTree b) {
             this.stack = new Stack<Node>();
             if (!b.isEmpty()) {
                 b.putCursorAtRoot();
                 this.stack.add(b.getCursorNode());
-                this.lastNodeIterated = null;
-                this.nodeToBeSkipped = null;
+                this.nodeContainingNull = new Node(null, null);                
+                this.lastNodeIterated = nodeContainingNull;
+                this.parentNodeToSkip = nodeContainingNull;
             }
         }
 
+        private boolean returnCurrentNode(Node currentNode) {
+            if (currentNode.getLeftSon() == null) {
+                return true;
+            } else if (currentNode.getLeftSon() != null) {
+                Node checkIfNodeHasBeenIterated = currentNode.getLeftSon();
+                
+                if (checkIfNodeHasBeenIterated == lastNodeIterated) {
+                    return true;
+                }
+
+                while(checkIfNodeHasBeenIterated != null) {
+                    if (checkIfNodeHasBeenIterated.getRightSon() == lastNodeIterated) {
+                        return true;
+                    }
+                    checkIfNodeHasBeenIterated = checkIfNodeHasBeenIterated.getRightSon();
+                }
+            }
+            return false;
+        }
 
         public Object next() {
             if (!hasNext()) {
@@ -311,32 +331,26 @@ public class BinaryTree implements Iterable {
 
             Node currentNode = stack.pop();
 
-            if (nodeToBeSkipped == currentNode) {
-                lastNodeIterated = currentNode;
+            if (returnCurrentNode(currentNode)) {
+                if (currentNode.getRightSon() != null) {
+                    stack.add(currentNode.getRightSon());
+                }
 
+                lastNodeIterated = currentNode;
+                return currentNode.getData();
+            } else {
+                while (currentNode.getLeftSon() != null) {
+                    stack.add(currentNode);
+                    currentNode = currentNode.getLeftSon();
+                }
+
+                if (currentNode.getRightSon() != null) {
+                    stack.add(currentNode.getRightSon());
+                }
+
+                lastNodeIterated = currentNode;
                 return currentNode.getData();
             }
-
-            while (currentNode.getLeftSon() != null && currentNode.getLeftSon() != lastNodeIterated 
-                && currentNode.getLeftSon() != nodeToBeSkipped) {
-                stack.add(currentNode);
-                currentNode = currentNode.getLeftSon();
-
-            }
-
-            if (currentNode.getRightSon() != null) {
-                stack.add(currentNode.getRightSon());
-
-            }
-
-            if (lastNodeIterated == currentNode.getLeftSon()) {
-                nodeToBeSkipped = currentNode;
-
-            }
-
-            lastNodeIterated = currentNode;
-
-            return currentNode.getData();
         }
 
 
@@ -350,9 +364,8 @@ public class BinaryTree implements Iterable {
         }
     }
 
-
     private class PreOrderIterator implements Iterator {
-        private Stack<Node> stack;
+        protected Stack<Node> stack;
 
 
         public PreOrderIterator(BinaryTree b) {
