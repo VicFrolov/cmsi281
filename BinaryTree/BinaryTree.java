@@ -297,17 +297,15 @@ public class BinaryTree implements Iterable {
     private class InOrderIterator implements Iterator {
         private Stack<Node> stack;
         private Node lastNodeIterated;
-        private Node parentNodeToSkip;
-        private Node nodeContainingNull;
+
 
         public InOrderIterator(BinaryTree b) {
             this.stack = new Stack<Node>();
+            
             if (!b.isEmpty()) {
                 b.putCursorAtRoot();
                 this.stack.add(b.getCursorNode());
-                this.nodeContainingNull = new Node(null, null);                
-                this.lastNodeIterated = nodeContainingNull;
-                this.parentNodeToSkip = nodeContainingNull;
+                this.lastNodeIterated = new Node(null, null); 
             }
         }
 
