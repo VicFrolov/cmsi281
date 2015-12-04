@@ -261,6 +261,7 @@ public class BinaryTree implements Iterable {
                 nodeToPrune.setRightSon(null);
             }
             this.size = 0;
+            this.cursor = this.root;
             return true;
         }
 
