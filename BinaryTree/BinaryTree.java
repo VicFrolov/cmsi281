@@ -114,13 +114,20 @@ public class BinaryTree implements Iterable {
         }
 
         Iterator tree1Iterator = this.iterator();
-        Iterator tree2Iterator = tree2.iterator();      
+        Iterator tree2Iterator = tree2.iterator();
+        Iterator tree1inOrderIterator = this.inOrder();
+        Iterator tree2inOrderIterator = tree2.inOrder();
 
-        while (tree1Iterator.hasNext()) {
+
+        while (tree1Iterator.hasNext() && tree2inOrderIterator.hasNext()) {
             Object tree1Object = tree1Iterator.next();
             Object tree2Object = tree2Iterator.next();
-
+            Object tree1inOrderObject = tree1inOrderIterator.next();
+            Object tree2inOrderObject = tree2inOrderIterator.next();
+            
             if (!tree1Object.equals(tree2Object)) {
+                return false;
+            } else if (!tree1inOrderObject.equals(tree2inOrderObject)) {
                 return false;
             }
         }
@@ -514,12 +521,4 @@ class Node {
         this.data = o;
     }
 
-
-    public boolean hasChildren() {
-        if (this.leftSon == null && this.rightSon == null) {
-            return false;
-        } else {
-            return true;
-        }
-    }
 }
