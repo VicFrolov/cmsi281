@@ -638,8 +638,8 @@ public class BinaryTreeTestHarness {
             massive4.attachLeftSonAtCursor(new Integer(i));
             massive4.putCursorAtLeftSon();
         }
-
-        massive4.attachRightSonAtCursor(new Integer(99));
+        
+        massive4.attachRightSonAtCursor(new Integer(99));       
 
         BinaryTree massive5 = new BinaryTree(new Integer(1));
         for (int i = 2; i < 100; i++) {
