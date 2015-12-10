@@ -27,7 +27,8 @@ public class WordFrequencies {
         }
         return map;
     }
-    public static String invalidInput() {
+
+    private static String invalidInput() {
         return "This program only allows piping inputs. The only valid commands are:\n '-s'\n '-c'\n '-sc'\n '-cs'\n" +
         "s indicates case sensitive, c indicates a clean output of only keys, and mixing the two does both\n" +
         "Please pipe in a file and enter no commands, or select a valid command from the list above.";
@@ -86,7 +87,3 @@ public class WordFrequencies {
         scanner.close();
     }
 }
-
-
-
-
