@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Set;
 
 public class WordFrequencies {
 
@@ -26,13 +27,14 @@ public class WordFrequencies {
         return map;
     }
     public static String invalidInput() {
-        return "Please either only pipe in a file, or use '-s', '-c' or a mix of them with only one hyphen";
+        return "This program only allows piping inputs. The only valid commands are:\n '-s'\n '-c'\n '-sc'\n '-cs'\n" +
+        "s indicates case sensitive, c indicates a clean output of only keys, and mixing the two does both\n" +
+        "Please pipe in a file and enter no commands, or select a valid command from the list above.";
     }
 
     public static void main(String[] args) {
         String fileInput = "";
         String[] userOptions = new String[]{"-s", "-c", "-sc", "-cs"};
-        boolean caseSensitive = false;
         String userConstraint = "";
         String[] cleanStringArray;
         Scanner scanner = new Scanner(System.in);
@@ -40,10 +42,10 @@ public class WordFrequencies {
         if (args.length > 1) {
             System.out.println(invalidInput());
             return;
-        } else {
+        } else if (args.length == 1) {
             userConstraint = args[0];
             boolean match = false;
-            
+
             for (String s : userOptions) {                
                 if (userConstraint.equals(s)) {
                     match = true;
@@ -59,9 +61,10 @@ public class WordFrequencies {
             fileInput += scanner.nextLine();
         }
 
-        caseSensitive = userConstraint.equals(userOptions[0]) || userConstraint.equals(userOptions[2]) ||
-                userConstraint.equals(userOptions[3]);
-        
+        boolean caseSensitive = userConstraint.equals(userOptions[0]) || userConstraint.equals(userOptions[2]) ||
+            userConstraint.equals(userOptions[3]);
+        boolean outputClean = userConstraint.equals(userOptions[1]) || userConstraint.equals(userOptions[2]) || 
+            userConstraint.equals(userOptions[3]);
 
         if (args.length == 0 || !caseSensitive) {
             cleanStringArray = wordFrequencyArray(fileInput);
@@ -69,10 +72,16 @@ public class WordFrequencies {
             cleanStringArray = wordFrequencyArrayWithoutUppercase(fileInput);          
         } 
 
-        HashMap mapOfWords = turnIntoHashMapAndSet(cleanStringArray);
+        HashMap<String, Integer> mapOfWords = turnIntoHashMapAndSet(cleanStringArray);
+        Set<String> keySet = mapOfWords.keySet();
 
-        System.out.println(mapOfWords.keySet());
-
+        for (String key : keySet) {
+            System.out.print(String.format("%-10s", key));
+            if (!outputClean) {
+                System.out.print(" " + String.format("%-10s", mapOfWords.get(key)))  ;
+            }
+            System.out.println();
+        }
         scanner.close();
     }
 }
