@@ -1,11 +1,12 @@
 import java.util.HashMap;
 import java.util.Scanner;
-import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class WordFrequencies {
 
     private static String[] wordFrequencyArray(String s) {
-        return s.replaceAll("-", "").replaceAll("[^A-Za-z0-9]", " ").toUpperCase().split(" ");
+        return s.replaceAll("[-!?,.;:]", "").replaceAll("[^A-Za-z0-9]", " ").toUpperCase().split(" ");
     }
 
     private static String[] wordFrequencyArrayWithoutUppercase(String s) {
@@ -73,7 +74,7 @@ public class WordFrequencies {
         } 
 
         HashMap<String, Integer> mapOfWords = turnIntoHashMapAndSet(cleanStringArray);
-        Set<String> keySet = mapOfWords.keySet();
+        SortedSet<String> keySet = new TreeSet<String>(mapOfWords.keySet());
 
         for (String key : keySet) {
             System.out.print(String.format("%-10s", key));
