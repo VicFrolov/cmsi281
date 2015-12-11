@@ -1,3 +1,14 @@
+/*
+* Assumptions: After speaking with Dr Dorin, he suggested I post this for my assumptions on what characters to ignore:
+* 
+* 1)    An apostrophe is considered "regular punctuation", I will assume it is part of the word, ie:
+*       <He's> AND <'night> will each be considered a word, and stored as the keys <He's> and <night>. < & > are 
+*       used to identify the beginning and end of the word, and of course are not part of the actual key.
+* 
+* 2)    Even though most other regular punctuation, such as <!> and <?> are considered regular, they will NOT be 
+*       attached to a word. Neither will double quotes or any other type of punctuation. 
+*/
+
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.SortedSet;
@@ -6,7 +17,7 @@ import java.util.TreeSet;
 public class WordFrequencies {
 
     private static String[] wordFrequencyArray(String s) {
-        return s.replaceAll("[-!?,.;:]", "").replaceAll("[^A-Za-z0-9]", " ").toUpperCase().split(" ");
+        return s.replaceAll("-", "").replaceAll("[^A-Za-z0-9']", " ").toUpperCase().split(" ");
     }
 
     private static String[] wordFrequencyArrayWithoutUppercase(String s) {
@@ -15,7 +26,6 @@ public class WordFrequencies {
 
     private static HashMap<String, Integer> turnIntoHashMapAndSet(String[] inputArray) {
         HashMap<String, Integer> map = new HashMap<String, Integer>(inputArray.length);
-
         for (String s : inputArray) {
             if (s.length() > 0) {
                 if (map.get(s) == null) {
@@ -40,14 +50,12 @@ public class WordFrequencies {
         String userConstraint = "";
         String[] cleanStringArray;
         Scanner scanner = new Scanner(System.in);
-
         if (args.length > 1) {
             System.out.println(invalidInput());
             return;
         } else if (args.length == 1) {
             userConstraint = args[0];
             boolean match = false;
-
             for (String s : userOptions) {                
                 if (userConstraint.equals(s)) {
                     match = true;
@@ -67,7 +75,7 @@ public class WordFrequencies {
             userConstraint.equals(userOptions[3]);
         boolean outputClean = userConstraint.equals(userOptions[1]) || userConstraint.equals(userOptions[2]) || 
             userConstraint.equals(userOptions[3]);
-
+        
         if (args.length == 0 || !caseSensitive) {
             cleanStringArray = wordFrequencyArray(fileInput);
         } else {
