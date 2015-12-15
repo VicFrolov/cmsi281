@@ -2,7 +2,7 @@
 * Assumptions: After speaking with Dr Dorin, he suggested I post this for my assumptions on what characters to ignore:
 * 
 * 1)    An apostrophe is considered "regular punctuation", I will assume it is part of the word, ie:
-*       <He's> AND <'night> will each be considered a word, and stored as the keys <He's> and <night>. < & > are 
+*       <He's> AND <'night> will each be considered a word, and stored as the keys <Hes> and <night>. < & > are 
 *       used to identify the beginning and end of the word, and of course are not part of the actual key.
 * 
 * 2)    Even though most other regular punctuation, such as <!> and <?> are considered regular, they will NOT be 
@@ -17,11 +17,11 @@ import java.util.TreeSet;
 public class WordFrequencies {
 
     private static String[] wordFrequencyArray(String s) {
-        return s.replaceAll("-", "").replaceAll("[^A-Za-z0-9']", " ").toUpperCase().split(" ");
+        return s.replaceAll("[-']", "").replaceAll("[^A-Za-z0-9]", " ").toUpperCase().split(" ");
     }
 
     private static String[] wordFrequencyArrayWithoutUppercase(String s) {
-        return s.replaceAll("-", "").replaceAll("[^A-Za-z0-9]", " ").split(" ");
+        return s.replaceAll("[-']", "").replaceAll("[^A-Za-z0-9]", " ").split(" ");
     }
 
     private static HashMap<String, Integer> turnIntoHashMapAndSet(String[] inputArray) {
@@ -92,6 +92,7 @@ public class WordFrequencies {
             }
             System.out.println();
         }
+
         scanner.close();
     }
 }
